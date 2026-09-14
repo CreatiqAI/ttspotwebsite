@@ -1,0 +1,38 @@
+/* One world-space road mesh: the car and road use the same centreline. */
+(()=>{
+const canvas=document.createElement('canvas');canvas.className='continuous-highway';canvas.setAttribute('aria-hidden','true');journey.prepend(canvas);
+let geometry,points=[],finishY=Infinity;const ease=t=>t*t*t*(t*(t*6-15)+10);
+function centre(y){const {h,w,bh,bw,lead}=geometry;if(y<lead)return bw/2+(roadX(0)-.5)*w;if(y<h)return bw/2+(roadX(Math.min(1,(y-lead)/(w*3)))-.5)*w;const t=(y-h)/bh,start=(roadX(1)-.5)*w;if(t>=1)return bw/2;const reach=Math.min(bw*.39,bw/2-65);if(t<.3)return bw/2+start+(reach-start)*ease(t/.3);if(t<.57)return bw/2+reach;return bw/2+reach*(1-ease((t-.57)/.43));}
+function sample(y){const x=centre(y),dx=(centre(y+1)-centre(Math.max(0,y-1)))/2,n=Math.hypot(1,dx);return{x,y,nx:1/n,ny:-dx/n,angle:-Math.atan2(dx,1)*180/Math.PI};}
+const texture=new Image();texture.src='highway-asphalt.png';
+function render(){const bw=journey.clientWidth,h=featureSection.offsetHeight,w=featureSection.querySelector('.feature-road').getBoundingClientRect().width,bh=document.querySelector('.discovery').offsetHeight,total=journey.offsetHeight;geometry={bw,h,w,bh,lead:h-w*3};finishY=total-innerHeight*.55;const dpr=Math.min(devicePixelRatio||1,1.5),width=Math.min(88,w*.18,bw*.12);canvas.width=Math.round(bw*dpr);canvas.height=Math.round(total*dpr);canvas.style.height=total+'px';const c=canvas.getContext('2d');c.scale(dpr,dpr);points=[];for(let y=0;y<=Math.min(total,finishY+44);y+=3)points.push(sample(y));
+function stroke(offset,color,lineWidth,dash=[]){c.beginPath();points.forEach((p,i)=>{const x=p.x+p.nx*offset,y=p.y+p.ny*offset;i?c.lineTo(x,y):c.moveTo(x,y)});c.strokeStyle=color;c.lineWidth=lineWidth;c.lineJoin='round';c.lineCap='butt';c.setLineDash(dash);c.stroke();c.setLineDash([])}
+// A continuous concrete deck rises gently in the dashboard chapter.
+const elevation=y=>{const t=Math.max(0,Math.min(1,(y-h)/bh));return Math.sin(Math.PI*t)**2;};
+for(let y=h+200;y<h+bh-150;y+=205){const p=sample(y),lift=elevation(y),x=p.x+p.nx*width*.38+8,top=y+p.ny*width*.38+10,bottom=top+105*lift;
+ c.save();c.shadowBlur=18;c.shadowColor='#000b';c.shadowOffsetX=14;c.shadowOffsetY=12;
+ const concrete=c.createLinearGradient(x-16,0,x+16,0);concrete.addColorStop(0,'#4b4b48');concrete.addColorStop(.45,'#303332');concrete.addColorStop(1,'#171d1c');c.fillStyle=concrete;c.fillRect(x-16,top,30,bottom-top);c.restore();
+ c.fillStyle='#191e1e';c.beginPath();c.moveTo(x+14,top);c.lineTo(x+23,top-7);c.lineTo(x+23,bottom-7);c.lineTo(x+14,bottom);c.fill();
+ const red=c.createLinearGradient(0,top,0,bottom);red.addColorStop(0,'#eb102452');red.addColorStop(1,'#eb102400');c.fillStyle=red;c.fillRect(x-16,top,9,bottom-top);
+}
+for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],depth=3+23*elevation(b.y);for(const side of [-1,1]){const ax=a.x+a.nx*side*(width/2+6),ay=a.y+a.ny*side*(width/2+6),bx=b.x+b.nx*side*(width/2+6),by=b.y+b.ny*side*(width/2+6);c.beginPath();c.moveTo(ax,ay);c.lineTo(bx,by);c.lineTo(bx+3,by+depth);c.lineTo(ax+3,ay+3+23*elevation(a.y));c.closePath();c.fillStyle=side===1?'#363a39':'#222725';c.fill();}}
+// Continuous shoulder, asphalt and lane markings, including the bridge ramps.
+c.save();c.shadowColor='#000c';c.shadowBlur=18;c.shadowOffsetY=8;stroke(0,'#202320',width+17);c.restore();stroke(0,'#555752',width+9);stroke(0,'#292b2d',width);
+if(texture.complete&&texture.naturalWidth){const tile=document.createElement('canvas');tile.width=160;tile.height=160;const tc=tile.getContext('2d');tc.drawImage(texture,0,0,160,160);c.globalAlpha=.58;stroke(0,c.createPattern(tile,'repeat'),width-2);c.globalAlpha=1;}
+// Soft wheel-polished tracks follow the road instead of repeating across it.
+for(const offset of [-.31,-.16,.16,.31]){stroke(width*offset,'#090b0b0a',width*.09);stroke(width*offset,'#090b0b09',width*.05);}
+stroke(-width/2+1,'#171b1a99',2);stroke(width/2-1,'#15191888',2);
+stroke(-width/2+5,'#dfdfca',1.65);stroke(width/2-5,'#d2d3bf',1.65);stroke(0,'#d4d5c8',1.85,[20,28]);
+// Small raised reflectors and guardrail fixings add physical scale.
+let markerDistance=0;for(const p of points){if(p.y-markerDistance<72)continue;markerDistance=p.y;c.fillStyle='#f3e5b0aa';c.fillRect(p.x-1,p.y-1,2,2);for(const side of [-1,1]){const x=p.x+p.nx*side*(width/2+4),y=p.y+p.ny*side*(width/2+4);c.fillStyle='#1c201fcc';c.fillRect(x-1.2,y-1.2,2.4,3);c.fillStyle='#a1a29d';c.fillRect(x-1,y-1,1.2,1.2);}}
+// Metallic guardrail posts cast depth along the raised deck.
+let lastPost=0;for(const p of points){if(p.y-lastPost<26)continue;lastPost=p.y;const lift=3+9*elevation(p.y);for(const side of [-1,1]){const x=p.x+p.nx*side*(width/2+5),y=p.y+p.ny*side*(width/2+5);c.strokeStyle='#3e484a';c.lineWidth=2.5;c.beginPath();c.moveTo(x+1,y+2);c.lineTo(x,y-lift);c.stroke();c.strokeStyle='#bab9ae';c.lineWidth=.8;c.beginPath();c.moveTo(x-1,y);c.lineTo(x-1,y-lift);c.stroke();}}
+// Guardrails rise gradually along the elevated chapter, then return to ground.
+for(const side of [-1,1]){c.beginPath();let started=false;for(const p of points){const t=Math.max(0,Math.min(1,(p.y-h)/bh)),lift=12*Math.sin(Math.PI*t)**2;const x=p.x+p.nx*side*(width/2+5),y=p.y+p.ny*side*(width/2+5)-lift;started?c.lineTo(x,y):c.moveTo(x,y);started=true;}c.strokeStyle='#9a9e9f';c.lineWidth=2;c.stroke();}
+let last=0;for(const p of points){if(p.y<h+130||p.y>h+bh-130||p.y-last<150)continue;last=p.y;const t=(p.y-h)/bh,lift=12*Math.sin(Math.PI*t)**2,x=p.x+p.nx*(width/2+6),y=p.y+p.ny*(width/2+6);c.strokeStyle='#626a70';c.lineWidth=2;c.beginPath();c.moveTo(x,y);c.lineTo(x,y-26-lift);c.lineTo(x-8,y-30-lift);c.stroke();c.save();c.shadowBlur=12;c.shadowColor='#ffedcc';c.fillStyle='#fff4dd';c.fillRect(x-10,y-32-lift,8,3);c.restore();}
+// Finish stripe spans the same road surface; the extra page space lets the car reach it.
+const fx=centre(finishY),cell=width/8;for(let row=0;row<3;row++)for(let col=0;col<8;col++){c.fillStyle=(row+col)%2?'#131516':'#ecece4';c.fillRect(fx-width/2+col*cell,finishY-cell*1.5+row*cell,cell+.2,cell+.2)}
+c.fillStyle='#f5f5f0';c.font='italic 800 22px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('FINISH',fx,finishY-30);syncCar();}
+function syncCar(){if(!geometry)return;const rawY=parseFloat(journey.style.getPropertyValue('--drive-y'))||0,y=Math.min(rawY,finishY),p=sample(y);journey.style.setProperty('--drive-y',y+'px');if(rawY>=finishY-1&&journey.getBoundingClientRect().top<0)window.dispatchEvent(new Event('ttspot-finish'));journey.style.setProperty('--drive-x',(p.x-geometry.bw/2)+'px');journey.style.setProperty('--drive-angle',p.angle+'deg');car.classList.remove('on-bridge');}
+const originalUpdate=updateRoad;updateRoad=function(){originalUpdate();syncCar()};texture.onload=render;new ResizeObserver(render).observe(journey);window.addEventListener('resize',render);render();
+})();
