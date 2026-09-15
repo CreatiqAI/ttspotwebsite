@@ -1,6 +1,7 @@
 /* One world-space road mesh: the car and road use the same centreline. */
 (()=>{
 const canvas=document.createElement('canvas');canvas.className='continuous-highway';canvas.setAttribute('aria-hidden','true');journey.prepend(canvas);
+const checkpoint=document.createElement('button');checkpoint.className='music-checkpoint';checkpoint.type='button';checkpoint.innerHTML='<span aria-hidden="true">▶</span><small>TTSPOT RADIO</small>';checkpoint.setAttribute('aria-label','Play music at the checkpoint');journey.append(checkpoint);checkpoint.onclick=()=>window.dispatchEvent(new Event('ttspot-music-toggle'));let musicCrossed=false;
 let geometry,points=[],finishY=Infinity;const ease=t=>t*t*t*(t*(t*6-15)+10);
 function centre(y){const {h,w,bh,bw,lead}=geometry;if(y<lead)return bw/2+(roadX(0)-.5)*w;if(y<h)return bw/2+(roadX(Math.min(1,(y-lead)/(w*3)))-.5)*w;const t=(y-h)/bh,start=(roadX(1)-.5)*w;if(t>=1)return bw/2;const reach=Math.min(bw*.39,bw/2-65);if(t<.3)return bw/2+start+(reach-start)*ease(t/.3);if(t<.57)return bw/2+reach;return bw/2+reach*(1-ease((t-.57)/.43));}
 function sample(y){const x=centre(y),dx=(centre(y+1)-centre(Math.max(0,y-1)))/2,n=Math.hypot(1,dx);return{x,y,nx:1/n,ny:-dx/n,angle:-Math.atan2(dx,1)*180/Math.PI};}
@@ -33,6 +34,6 @@ let last=0;for(const p of points){if(p.y<h+130||p.y>h+bh-130||p.y-last<150)conti
 // Finish stripe spans the same road surface; the extra page space lets the car reach it.
 const fx=centre(finishY),cell=width/8;for(let row=0;row<3;row++)for(let col=0;col<8;col++){c.fillStyle=(row+col)%2?'#131516':'#ecece4';c.fillRect(fx-width/2+col*cell,finishY-cell*1.5+row*cell,cell+.2,cell+.2)}
 c.fillStyle='#f5f5f0';c.font='italic 800 22px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('FINISH',fx,finishY-30);syncCar();}
-function syncCar(){if(!geometry)return;const rawY=parseFloat(journey.style.getPropertyValue('--drive-y'))||0,y=Math.min(rawY,finishY),p=sample(y);journey.style.setProperty('--drive-y',y+'px');if(rawY>=finishY-1&&journey.getBoundingClientRect().top<0)window.dispatchEvent(new Event('ttspot-finish'));journey.style.setProperty('--drive-x',(p.x-geometry.bw/2)+'px');journey.style.setProperty('--drive-angle',p.angle+'deg');car.classList.remove('on-bridge');}
+function syncCar(){if(!geometry)return;const checkpointY=geometry.h+28;checkpoint.style.left=centre(checkpointY)+'px';checkpoint.style.top=checkpointY+'px';const rawY=parseFloat(journey.style.getPropertyValue('--drive-y'))||0,y=Math.min(rawY,finishY),p=sample(y);journey.style.setProperty('--drive-y',y+'px');if(!musicCrossed&&y>=checkpointY&&journey.getBoundingClientRect().top<0){musicCrossed=true;window.dispatchEvent(new Event('ttspot-music-checkpoint'));}if(rawY>=finishY-1&&journey.getBoundingClientRect().top<0)window.dispatchEvent(new Event('ttspot-finish'));journey.style.setProperty('--drive-x',(p.x-geometry.bw/2)+'px');journey.style.setProperty('--drive-angle',p.angle+'deg');car.classList.remove('on-bridge');}
 const originalUpdate=updateRoad;updateRoad=function(){originalUpdate();syncCar()};texture.onload=render;new ResizeObserver(render).observe(journey);window.addEventListener('resize',render);render();
 })();
