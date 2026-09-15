@@ -75,3 +75,19 @@
 #partner-join .partner-caption{font-size:10px;line-height:1.5;margin:12px 0 0;max-width:none;color:#bcbcbc}
 @media(max-width:480px){.road-journey #vendors .partner-track>.partner-preview{padding:20px}.partner-lead{gap:13px}.partner-lead>img{width:48px;height:48px}.partner-lead h4{font-size:34px}.partner-value-grid{grid-template-columns:1fr}.partner-route{font-size:9px;gap:6px}.partner-route span+span{padding-left:6px}}
 @media(prefers-reduced-motion:reduce){.partner-track{transition:none}}
+
+/* Both slides share one measured height, independent of selected page. */
+.partner-track{transition:none}
+.partner-directory .partner-logo{height:82px;padding:10px}
+.partner-directory .partner-logo.soundstream-logo{padding:3px}
+.partner-directory .partner-brands{gap:12px}
+.partner-directory .partner-brands h4{font-size:15px;margin:10px 0 5px}
+.partner-directory .partner-brands p{margin:5px 0}
+.partner-directory .partner-brands article:last-child{grid-column:1/-1;display:grid;grid-template-columns:48px 1fr;gap:2px 12px;text-align:left;align-items:center;border-top:1px solid #a5001c;padding-top:14px}
+.partner-directory .partner-brands article:last-child .partner-logo{grid-row:1/4;width:48px;height:48px;padding:0}
+.partner-directory .partner-brands article:last-child h4{margin:0}
+.partner-directory .partner-brands article:last-child .partner-join-link{text-align:left;padding:3px 0}
+.partner-directory .partner-caption{margin-top:18px}
+.partner-carousel{position:relative}
+.partner-page-status{padding-right:105px}
+.partner-autoplay{position:absolute;right:14px;bottom:7px;background:#000;color:#fff;border:1px solid #ed0029;border-radius:6px;padding:5px 8px;font:10px Arial;cursor:pointer}
