@@ -19,6 +19,6 @@ slider.oninput=()=>sendMusic('seek',Number(slider.value));
 window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.type!=='ttspot-audio-state')return;playing=e.data.playing;paintPlay();slider.max=e.data.duration||1;slider.value=e.data.time||0;document.querySelector('.hint').textContent=e.data.blocked?'Tap play to start music':e.data.error?'Music unavailable. Tap play to retry.':'The Hills · Full TikTok Remix';});
 sendMusic('state');
 document.addEventListener('keydown',e=>{if(e.key==='Escape')openPage('dashboard')});
-</script><script src="google-maps-config.js"></script><script src="ttspot-listings.js"></script><script src="ttspot-map.js"></script></body></html>
+</script><script src="google-maps-config.js"></script><script src="ttspot-listings.js"></script><script src="ttspot-map.js"></script><script src="tire-trail.js" defer></script></body></html>
 
 
