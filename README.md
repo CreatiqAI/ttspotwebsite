@@ -29,4 +29,12 @@ https://ttspot-prelaunch.kiyoliving.chatgpt.site/
 
 GitHub stores source history. Public website deployment is managed separately through Sites using `.openai/hosting.json`.
 
+## Vercel deployment
+
+Import `CreatiqAI/ttspotwebsite` and use the repository root (`./`) as the Root Directory. The GitHub repository already starts at the local `landing/` directory; do not enter `landing` in Vercel.
+
+`vercel.json` selects the Other framework preset, skips installation/build steps, and serves the committed `dist/` folder. The homepage is `dist/index.html`; the tablet is `dist/carplay.html`. No SPA catch-all rewrite is needed because site sections use URL hashes.
+
+Deploy the latest `main` commit after changing these settings. Existing deployment URLs remain snapshots of their original commits. Add the actual Vercel website domain to the Google Maps browser key's allowed referrers for maps to work on that domain.
+
 The Google Maps key in `dist/google-maps-config.js` is a browser key, visible by design. Restrict it to approved website referrers and Maps JavaScript API in Google Cloud. Signup forms currently run as previews.

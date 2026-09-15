@@ -9,6 +9,7 @@
 - Do not commit unrelated files, logs, credentials, temporary archives, or historical one-off migration scripts. The Google Maps browser key is intentionally public client configuration; preserve its website/API restrictions in Google Cloud. Never store server secrets here.
 - If Git author identity is unavailable, use per-command `-c user.name=Codex -c user.email=codex@openai.com` rather than changing the user's global identity.
 - Sites hosting remains the live website deployment. Preserve `.openai/hosting.json`; its source push is separate from GitHub. Use Sites credentials only in a per-command authorization header and never replace the GitHub origin with the Sites source URL.
+- Vercel is also supported by `vercel.json`: repository Root Directory `./`, static Output Directory `dist`, no install/build commands. Preserve this configuration; do not initialize a new framework or route every asset to index.html.
 
 ## Verification and important behavior
 - Run `node check-events.cjs` and `node check-music.cjs` for relevant map/audio changes. These mock-based checks do not verify Google authorization or browser rendering.
