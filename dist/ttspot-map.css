@@ -6,3 +6,28 @@
 .map .tt-map-world .tt-photo-pin.is-meet-flag img{background:transparent;border-radius:0}
 .tt-photo-pin.is-meet-flag span{top:calc(100% - 2px);border:1px solid #ef174366}
 @media(max-width:500px){.tt-photo-pin.is-meet-flag{width:62px;height:62px}}
+
+/* Compact full-map view: top information strip and a separate left filter rail. */
+.navigation.page.active{display:grid;grid-template-columns:58px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);gap:7px;padding:10px}
+.navigation .app-head,.navigation .tt-search{grid-column:1/-1}
+.navigation .map-filters{grid-column:1;grid-row:3;flex-direction:column;gap:7px;overflow-y:auto;min-height:0}
+.navigation .map-filters button{flex:0 0 58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:100%;padding:4px 1px;border-radius:9px;font:10px/1.2 Arial;background:#20272d}
+.navigation .map-filters button[aria-pressed=true]{background:#632740;box-shadow:inset 2px 0 #ff244d}
+.map-filter-icon svg{width:24px;height:24px;fill:none;stroke:#ff365a;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.map-filter-icon img{width:30px;height:30px;object-fit:contain}
+.navigation #full-map-slot{grid-column:2;grid-row:3;width:100%;min-height:0;height:100%}
+.navigation .tt-results{top:29px;bottom:auto;left:6px;right:6px;gap:6px;padding:2px 0 4px}
+.navigation .tt-result{flex-basis:190px;gap:6px;padding:6px;border-radius:8px;height:62px}
+.navigation .map .tt-result img{width:29px;height:36px}
+.navigation .tt-result strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navigation .tt-result small{font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.navigation .tt-event-detail{top:29px;bottom:auto;max-height:52%;left:6px;right:6px;padding:9px;gap:8px;border-radius:10px}
+.navigation .map .tt-detail-image{width:45px;height:55px}
+.navigation .tt-detail-body h3{font-size:14px;margin:3px 0 5px}
+.navigation .tt-detail-body p{font-size:11px;margin:3px 0}
+.navigation .tt-detail-actions{margin:5px 0}
+.tt-photo-pin{width:34px;height:40px;padding:2px;border-radius:8px}
+.tt-photo-pin.is-meet-flag{width:44px;height:44px}
+.tt-photo-pin span{display:none}
+.tt-photo-pin:hover span,.tt-photo-pin:focus-within span{display:block}
+@media(max-width:500px){.navigation.page.active{grid-template-columns:48px minmax(0,1fr);padding:6px;gap:5px}.navigation .map-filters button{font-size:8px;flex-basis:48px}.map-filter-icon svg{width:20px;height:20px}.map-filter-icon img{width:26px;height:26px}.navigation .tt-result{flex-basis:155px;height:58px}.tt-photo-pin.is-meet-flag{width:38px;height:38px}}
