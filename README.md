@@ -14,6 +14,7 @@ The editable website is in `dist/`; there is no build step.
 node check-events.cjs
 node check-music.cjs
 node check-performance.cjs
+node check-seo.cjs
 ```
 
 These check interaction logic with mocks. Google Maps authorization, audio autoplay policy, and visual rendering require a browser check.
@@ -41,6 +42,8 @@ Deploy the latest `main` commit after changing these settings. Existing deployme
 The Google Maps key in `dist/google-maps-config.js` is a browser key, visible by design. Restrict it to approved website referrers and Maps JavaScript API in Google Cloud. Signup forms currently run as previews.
 
 ## Performance safeguards
+
+SEO setup, OpenSEO reference analysis and free Search Console steps are documented in [SEO-SETUP.md](SEO-SETUP.md).
 
 - Full-resolution `.lossless.webp` assets were verified pixel-identical to their PNG originals. Map pins use 256px thumbnails; opening details loads the full-resolution poster.
 - `intro.stream.mp4` uses faststart metadata placement with copied streams, not re-encoding. Its audio/video packet hashes match the original.

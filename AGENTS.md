@@ -18,3 +18,4 @@
 - Preserve the existing intro, region backgrounds, road/car animation, music checkpoint, and CarPlay UI unless requested otherwise.
 - Forms are currently previews, not a working signup backend. Do not claim signups are collected.
 - Preserve accurate event dates, past-event labels, and unconfirmed-time notices. Listing a business does not imply a TTSpot partnership.
+- Keep SEO metadata, canonical URL, JSON-LD, robots.txt and sitemap.xml aligned with the primary domain. Run `node check-seo.cjs` after SEO changes. CarPlay is noindex; do not block crawling its URL in robots.txt or Google cannot see that directive. Read `SEO-SETUP.md` for account steps and limitations.

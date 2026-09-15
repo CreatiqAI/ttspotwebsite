@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const root=__dirname+'/dist/',html=fs.readFileSync(root+'index.html','utf8'),road=fs.readFileSync(root+'continuous-highway.js','utf8');
 assert(html.includes(road));assert(!html.includes('const bridgeBitmap='));assert(!/data:image\/png;base64/.test(html));assert(!html.includes('class="feature-road" src='));
-for(const name of ['index.html','carplay.html'])for(const m of fs.readFileSync(root+name,'utf8').matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g))new Function(m[1]);
+for(const name of ['index.html','carplay.html'])for(const m of fs.readFileSync(root+name,'utf8').matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)){if(m[0].includes('application/ld+json'))JSON.parse(m[1]);else new Function(m[1]);}
 let top=900,draws=0,observer,queue=[],canvas;const styles={};const gradient={addColorStop(){}};const ctx2d=new Proxy({createLinearGradient:()=>gradient,createPattern:()=>'',clearRect(){}},{get:(t,k)=>t[k]||(()=>{}),set:(t,k,v)=>(t[k]=v,true)});
 function element(){return{style:{},setAttribute(){},getContext:()=>ctx2d,onclick:null}}
 const journey={clientWidth:1440,offsetHeight:12000,style:{setProperty:(k,v)=>styles[k]=v,getPropertyValue:k=>styles[k]},prepend:c=>canvas=c,append(){},getBoundingClientRect:()=>({top})};Object.defineProperty(element,'unused',{value:0});
