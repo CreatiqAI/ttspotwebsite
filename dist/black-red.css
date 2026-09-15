@@ -1,0 +1,17 @@
+/* One black ground across the journey; saturated red for racing accents. */
+.road-journey{background:#000}
+.road-journey .experience,.road-journey .discovery,.road-journey #vendors,.road-journey .faq,.road-journey .final-invite,.road-journey .site-footer{background-color:#000;border-color:#a60018}
+.road-journey .feature,.road-journey .map-option,.road-journey .vendor-pitch,.road-journey #vendors .vendor-pitch,.road-journey #vendors .partner-track>.partner-preview,.road-journey .partner-carousel,.road-journey .partner-directory,.road-journey .business-card,.road-journey .offer-card{background:#000;border-color:#b9001c}
+.road-journey .feature-icon,.road-journey .planned,.road-journey .business-tags span,.road-journey .offer-icon{background:#000;border-color:#ed0029;color:#ff2445}
+.road-journey .map-option.selected{background:#b8001c;border-color:#ff2445}
+.road-journey .map-option.selected svg,.road-journey .map-option.selected small{color:#fff}
+#vendors .vendor-categories span{background:#000;border-color:#df0024;color:#fff}
+.road-journey #vendors .vendor-pitch,.road-journey .partner-carousel{border-top:5px solid #f00028;box-shadow:0 0 26px #ff00251a}
+.partner-carousel-nav,.partner-page-status{background:#000;border-color:#c60020}
+.partner-carousel-nav button[aria-pressed=true]{background:#e00025;color:#fff;box-shadow:none}
+.partner-track{scrollbar-color:#ee0027 #000}
+.community-pillars svg{background:#e00025;border-color:#ff3657;color:#fff}
+.road-journey .faq-list details{border-color:#b7001e}
+.road-journey .final-invite .outline-button{border-color:#ff2445}
+.road-journey #vendors,.road-journey .faq,.road-journey .final-invite{background-image:url('racing-black-red-v2.webp');background-repeat:no-repeat;background-size:cover;background-position:center}
+@media(max-width:760px){.road-journey .vendor-heading>*,.road-journey .discovery>*,.road-journey .faq>*,.road-journey .vendor-categories,.road-journey .final-actions{background-color:#000}.road-journey #vendors,.road-journey .faq,.road-journey .final-invite{background-size:auto 100%}}
