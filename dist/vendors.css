@@ -42,3 +42,12 @@
 @media(max-width:760px){#vendors .vendor-heading{grid-template-columns:1fr}.vendor-community{margin-top:28px}.community-pillars{gap:8px}.road-journey #vendors .vendor-panel{grid-template-columns:1fr;gap:24px}.road-journey #vendors .vendor-categories{max-width:none}.partner-logo{height:125px}.road-journey #vendors{padding-top:55px;padding-bottom:55px}.partner-directory{padding:22px}.vendor-tagline{letter-spacing:.16em}}
 
 .partner-logo.autolab-logo{background:#fff}.partner-brands a.partner-join-link{display:block;margin-top:10px}
+
+/* White Soundstream artwork supplied by the owner; original pixels preserved. */
+.partner-logo.soundstream-logo{background:#303030;padding:8px;border-color:#4c343b}
+.partner-logo.soundstream-logo img{width:100%;height:100%;object-fit:contain}
+#vendors .vendor-pitch,.partner-carousel{border-top:2px solid #a3152b}
+#vendors .vendor-categories span{border-left:2px solid #832235}
+.partner-carousel-nav button[aria-pressed=true]{box-shadow:inset 0 -2px #f32040}
+.community-pillars svg{background:#211116;border-color:#b62a3f}
+.road-journey #vendors,.road-journey .faq,.road-journey .final-invite{background-image:url("racing-carbon-red-v1.webp");background-size:cover;background-position:center;background-repeat:no-repeat}
