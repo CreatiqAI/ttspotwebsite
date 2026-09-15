@@ -40,3 +40,5 @@
 .partner-directory .partner-caption{margin-top:28px;font-size:11px;line-height:1.6;color:#93999f}
 .partner-page-status{margin:0;padding:12px 24px;border-top:1px solid #292d31;color:#a3a8ad;font-size:10px;letter-spacing:.12em}
 @media(max-width:760px){#vendors .vendor-heading{grid-template-columns:1fr}.vendor-community{margin-top:28px}.community-pillars{gap:8px}.road-journey #vendors .vendor-panel{grid-template-columns:1fr;gap:24px}.road-journey #vendors .vendor-categories{max-width:none}.partner-logo{height:125px}.road-journey #vendors{padding-top:55px;padding-bottom:55px}.partner-directory{padding:22px}.vendor-tagline{letter-spacing:.16em}}
+
+.partner-logo.autolab-logo{background:#fff}.partner-brands a.partner-join-link{display:block;margin-top:10px}
