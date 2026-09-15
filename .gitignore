@@ -15,5 +15,6 @@ assets-source/
 !/serve.cjs
 !/check-events.cjs
 !/check-music.cjs
+!/check-performance.cjs
 /*.py
 /road-trace.json

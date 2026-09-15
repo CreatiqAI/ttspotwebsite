@@ -13,6 +13,7 @@
 
 ## Verification and important behavior
 - Run `node check-events.cjs` and `node check-music.cjs` for relevant map/audio changes. These mock-based checks do not verify Google authorization or browser rendering.
+- Run `node check-performance.cjs` for road/loading changes. Preserve lossless full-resolution assets and full-resolution detail images; use a new filename for changed media to invalidate its browser cache.
 - `dist/continuous-highway.js` is also embedded in `dist/index.html`; keep both synchronized when editing the road.
 - Preserve the existing intro, region backgrounds, road/car animation, music checkpoint, and CarPlay UI unless requested otherwise.
 - Forms are currently previews, not a working signup backend. Do not claim signups are collected.

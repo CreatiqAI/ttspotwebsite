@@ -13,6 +13,7 @@ The editable website is in `dist/`; there is no build step.
 ```
 node check-events.cjs
 node check-music.cjs
+node check-performance.cjs
 ```
 
 These check interaction logic with mocks. Google Maps authorization, audio autoplay policy, and visual rendering require a browser check.
@@ -38,3 +39,12 @@ Import `CreatiqAI/ttspotwebsite` and use the repository root (`./`) as the Root 
 Deploy the latest `main` commit after changing these settings. Existing deployment URLs remain snapshots of their original commits. Add the actual Vercel website domain to the Google Maps browser key's allowed referrers for maps to work on that domain.
 
 The Google Maps key in `dist/google-maps-config.js` is a browser key, visible by design. Restrict it to approved website referrers and Maps JavaScript API in Google Cloud. Signup forms currently run as previews.
+
+## Performance safeguards
+
+- Full-resolution `.lossless.webp` assets were verified pixel-identical to their PNG originals. Map pins use 256px thumbnails; opening details loads the full-resolution poster.
+- `intro.stream.mp4` uses faststart metadata placement with copied streams, not re-encoding. Its audio/video packet hashes match the original.
+- The highway canvas renders a viewport-sized window with overscan at the existing pixel ratio, preserving world-space road/car coordinates. Unchanged scroll frames reuse the drawing.
+- Hidden legacy road assets are not fetched. Hero videos pause off-screen or in hidden tabs. Music does not preload before use; the map remains lazily initialized.
+- Media responses use a one-day browser cache. Use a new filename when replacing a media asset to avoid stale cached versions. HTML and JavaScript continue to revalidate.
+- Mock checks verify logic, not real browser performance. Do not claim measured LCP or frame-rate improvements without browser profiling.
