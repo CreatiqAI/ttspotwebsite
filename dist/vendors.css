@@ -51,3 +51,27 @@
 .partner-carousel-nav button[aria-pressed=true]{box-shadow:inset 0 -2px #f32040}
 .community-pillars svg{background:#211116;border-color:#b62a3f}
 .road-journey #vendors,.road-journey .faq,.road-journey .final-invite{background-image:url("racing-carbon-red-v1.webp");background-size:cover;background-position:center;background-repeat:no-repeat}
+
+/* Compact partner pitch; slide height follows its own content. */
+.partner-track{align-items:flex-start;scrollbar-width:none;transition:height .25s ease}
+.partner-track::-webkit-scrollbar{display:none}
+.partner-track>.partner-slide{height:auto;min-height:0;align-self:flex-start}
+.road-journey #vendors .partner-track>.partner-preview{justify-content:flex-start;display:block;padding:26px 28px}
+#partner-join .partner-preview-top{margin:0 0 24px;max-width:none;font-size:10px}
+.partner-lead{display:flex;align-items:center;gap:20px}
+.partner-lead>img{width:64px;height:64px;border-radius:14px;flex:none;object-fit:contain}
+.partner-lead .sample-label{margin:0 0 8px;font-size:9px;letter-spacing:.13em;color:#fff}
+.partner-lead h4{font-family:'Barlow Condensed',sans-serif;font-size:clamp(35px,3.5vw,54px);line-height:1;text-transform:uppercase;font-style:italic;margin:0;color:#fff}
+.partner-lead h4 em{font-style:inherit;color:#ff2445}
+.partner-summary{color:#e0e0e0;font-size:14px;line-height:1.6;margin:20px 0}
+.partner-value-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.partner-value-grid article{border:1px solid #a5001c;border-top:3px solid #f00028;padding:17px 15px;border-radius:10px;background:#000}
+.partner-value-grid article>span{font-size:9px;letter-spacing:.1em;color:#ff526e}
+.partner-value-grid h5{font-size:16px;line-height:1.25;margin:10px 0 8px;color:#fff}
+.partner-value-grid p{font-size:12px;line-height:1.6;color:#dedede;margin:0}
+.partner-route{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #920018;padding:20px 0;font-size:10px;color:#fff}
+.partner-route span+span{border-left:2px solid #ed0029;padding-left:12px}
+#partner-join .partner-main-cta{width:100%;justify-content:center;margin-top:20px;font-size:12px;letter-spacing:.09em;padding:15px}
+#partner-join .partner-caption{font-size:10px;line-height:1.5;margin:12px 0 0;max-width:none;color:#bcbcbc}
+@media(max-width:480px){.road-journey #vendors .partner-track>.partner-preview{padding:20px}.partner-lead{gap:13px}.partner-lead>img{width:48px;height:48px}.partner-lead h4{font-size:34px}.partner-value-grid{grid-template-columns:1fr}.partner-route{font-size:9px;gap:6px}.partner-route span+span{padding-left:6px}}
+@media(prefers-reduced-motion:reduce){.partner-track{transition:none}}
