@@ -1,0 +1,2 @@
+# Keep shell hooks executable on Windows and Unix after cloning.
+.githooks/* text eol=lf
