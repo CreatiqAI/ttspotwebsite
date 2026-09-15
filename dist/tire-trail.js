@@ -1,7 +1,7 @@
 /* Lightweight twin tire tracks. No pointer interception or idle animation. */
 (()=>{
  const fine=matchMedia('(hover: hover) and (pointer: fine)'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const tablet=!!document.querySelector('.device'),regions=document.querySelector('#regions'),spacing=8,limit=160;let lifetime=tablet?130:650,regionBox=null;
+ const tablet=!!document.querySelector('.device'),regions=document.querySelector('#regions'),journey=document.querySelector('.road-journey'),spacing=8,limit=160;let lifetime=tablet?130:650,regionBox=null;
  let canvas,ctx,frame=0,last=null,marks=[],width=0,height=0,zone=null;
  function clear(){last=null;marks=[];cancelAnimationFrame(frame);frame=0;if(ctx)ctx.clearRect(0,0,width,height);}
  function resize(){if(!canvas)return;clear();width=innerWidth;height=innerHeight;const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
@@ -21,7 +21,7 @@
   if(regionBox)ctx.clearRect(regionBox.left,regionBox.top,regionBox.width,regionBox.height);
   if(marks.length)frame=requestAnimationFrame(draw);
  }
- function move(event){regionBox=regions?.getBoundingClientRect();const nextZone=event.target?.closest?.('#regions')?'regions':tablet||event.target?.closest?.('#live-map')?'map':'page';if(nextZone!==zone){clear();zone=nextZone;lifetime=zone==='map'?130:650;}if(zone==='regions'){clear();return;}if(!fine.matches||reduced.matches||event.pointerType!=='mouse')return;create();if(!ctx)return;const now=performance.now(),point={x:event.clientX,y:event.clientY,time:now};
+ function move(event){regionBox=null;if(regions){const r=regions.getBoundingClientRect(),bottom=Math.min(r.bottom,journey?journey.getBoundingClientRect().top:r.bottom,innerHeight),top=Math.max(0,r.top);if(bottom>top)regionBox={left:r.left,top,width:r.width,height:bottom-top};}const nextZone=event.target?.closest?.('#regions')?'regions':tablet||event.target?.closest?.('#live-map')?'map':'page';if(nextZone!==zone){clear();zone=nextZone;lifetime=zone==='map'?130:650;}if(zone==='regions'){clear();return;}if(!fine.matches||reduced.matches||event.pointerType!=='mouse')return;create();if(!ctx)return;const now=performance.now(),point={x:event.clientX,y:event.clientY,time:now};
   if(!last||now-last.time>160){last=point;return;}
   const dx=point.x-last.x,dy=point.y-last.y,distance=Math.hypot(dx,dy);if(distance>180){last=point;return;}if(distance<spacing)return;
   const angle=Math.atan2(dy,dx),count=Math.floor(distance/spacing);
