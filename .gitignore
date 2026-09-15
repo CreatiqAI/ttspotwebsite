@@ -1,0 +1,19 @@
+# Local development and packaging
+node_modules/
+*.log
+*.tar
+*.tar.gz
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+assets-source/
+
+# Historical one-time migration utilities; production code is in dist/.
+/*.cjs
+!/serve.cjs
+!/check-events.cjs
+!/check-music.cjs
+/*.py
+/road-trace.json

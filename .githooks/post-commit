@@ -1,0 +1,12 @@
+#!/bin/sh
+# Push committed changes only. Never stage files, force-push, or change branches.
+branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
+if ! git remote get-url origin >/dev/null 2>&1; then
+  echo 'TTSpot: no origin remote; commit saved locally but not pushed.' >&2
+  exit 1
+fi
+echo "TTSpot: pushing committed changes to origin/$branch..."
+if ! git push --set-upstream origin "$branch"; then
+  echo 'TTSpot: automatic push failed. The commit is safe locally; resolve the error and run git push.' >&2
+  exit 1
+fi
