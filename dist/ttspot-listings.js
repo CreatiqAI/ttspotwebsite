@@ -3,7 +3,7 @@ window.TTSPOT_LISTINGS=[
   {
     "id": "penang-autoshow-2026",
     "region": "penang",
-    "category": "meets",
+    "category": "checkpoints",
     "title": "Penang Autoshow 2026",
     "short": "Penang Autoshow",
     "thumbnail": "carplay-assets/penang-autoshow.thumb.webp",
@@ -21,7 +21,7 @@ window.TTSPOT_LISTINGS=[
   {
     "id": "retro-havoc-2026",
     "region": "kl",
-    "category": "meets",
+    "category": "checkpoints",
     "title": "Retro Havoc Car Show 2026",
     "short": "Retro Havoc",
     "thumbnail": "carplay-assets/retro-havoc.thumb.webp",
