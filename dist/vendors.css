@@ -1,0 +1,42 @@
+/* Local shops: two editorial columns around the existing continuous highway. */
+.road-journey #vendors{padding-top:90px;padding-bottom:90px;background:#0c0e0f}
+#vendors .vendor-heading{align-items:start}
+#vendors .vendor-heading h2{font-size:clamp(44px,4.8vw,78px);line-height:.98;max-width:600px;margin:24px 0}
+.vendor-tagline{font-size:11px;letter-spacing:.27em;color:#a9abad;margin:28px 0 0}
+.vendor-community h3{font-size:clamp(34px,3.9vw,60px);line-height:1.04;font-style:italic;font-weight:400;text-transform:uppercase;margin:32px 0}
+.vendor-community h3 strong{color:var(--red);font-family:inherit;font-weight:800}
+.community-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:36px;text-align:center}
+.community-pillars>div{display:flex;align-items:center;flex-direction:column;gap:12px}
+.community-pillars svg{width:57px;height:57px;padding:15px;border:1px solid #a52e3d;border-radius:50%;color:#fff}
+.community-pillars strong{text-transform:uppercase;font-size:13px;letter-spacing:.1em}
+.community-pillars span{font-size:13px;color:#999da1;line-height:1.5}
+#vendors .vendor-categories{margin:28px 0 35px;gap:7px}
+#vendors .vendor-categories span{padding:8px 12px;font-size:11px;background:#111416;border-color:#282b2f;color:#aeb1b5}
+.road-journey #vendors .vendor-panel{align-items:start}
+.road-journey #vendors .vendor-pitch{border:1px solid #303337;background:#101315;padding:clamp(24px,3vw,45px)}
+#vendors .vendor-pitch h3{font-size:clamp(39px,4vw,62px);line-height:1.03}
+#vendors .vendor-benefits{gap:18px}
+#vendors .vendor-benefits span{font-size:13px}
+#vendors .vendor-pitch .primary{font-size:12px;letter-spacing:.12em}
+.partner-carousel{min-width:0;border:1px solid #303337;border-radius:20px;overflow:hidden;background:#101315}
+.partner-carousel-nav{display:flex;gap:6px;padding:16px 18px;border-bottom:1px solid #292d31}
+.partner-carousel-nav button{flex:1;border:0;border-radius:8px;padding:10px 8px;color:#aeb1b5;background:transparent;font:600 12px 'Hanken Grotesk',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.partner-carousel-nav button[aria-pressed=true]{background:#35141b;color:#fff}
+.partner-carousel-nav svg{width:13px;height:13px}
+.partner-carousel button:focus-visible,.partner-track:focus-visible{outline:2px solid #ff3a53;outline-offset:-3px}
+.partner-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#992336 #16191c;align-items:stretch}
+.partner-track>.partner-slide{flex:0 0 100%;width:100%;min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always}
+.road-journey #vendors .partner-track>.partner-preview{background:#101315;border-radius:0;padding:26px}
+.partner-directory{padding:26px}
+.partner-directory h3{font-size:clamp(36px,3.7vw,52px);text-transform:uppercase;line-height:1;margin:18px 0 12px;font-style:italic}
+.directory-intro{color:#aeb1b5;font-size:14px;margin-bottom:24px}
+.partner-brands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;text-align:center}
+.partner-logo{height:150px;border:1px solid #2f3438;background:#191d20;border-radius:13px;display:flex;align-items:center;justify-content:center;padding:20px}
+.partner-logo img{width:100%;height:100%;object-fit:contain}
+.partner-brands h4{font-size:17px;margin:18px 0 8px}
+.partner-brands p{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#abb0b5;line-height:1.5}
+.partner-brands span{font-size:11px;color:#8c9298}
+.partner-join-link{border:0;background:none;color:#ff647a;text-decoration:underline;font-size:12px;cursor:pointer;padding:7px}
+.partner-directory .partner-caption{margin-top:28px;font-size:11px;line-height:1.6;color:#93999f}
+.partner-page-status{margin:0;padding:12px 24px;border-top:1px solid #292d31;color:#a3a8ad;font-size:10px;letter-spacing:.12em}
+@media(max-width:760px){#vendors .vendor-heading{grid-template-columns:1fr}.vendor-community{margin-top:28px}.community-pillars{gap:8px}.road-journey #vendors .vendor-panel{grid-template-columns:1fr;gap:24px}.road-journey #vendors .vendor-categories{max-width:none}.partner-logo{height:125px}.road-journey #vendors{padding-top:55px;padding-bottom:55px}.partner-directory{padding:22px}.vendor-tagline{letter-spacing:.16em}}
