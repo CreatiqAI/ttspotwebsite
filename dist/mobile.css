@@ -2,7 +2,7 @@
 @media (max-width:760px) {
   html{scroll-padding-top:20px}
   body{overflow-x:clip}
-  .hero{position:relative;top:auto;min-height:850px;height:auto;padding-bottom:160px}
+  .hero{position:relative;top:auto;min-height:100vh;min-height:100svh;height:auto;padding-bottom:180px;width:100%}
   .hero header{padding:20px;align-items:center}
   .hero .logo img{width:52px;height:52px}
   .hero .burger{min-width:44px;min-height:44px}
@@ -20,7 +20,9 @@
   .hero .tagline{font-size:13px;margin:18px 0}
   .hero .hero-vendor{font-size:12px;min-height:44px;display:flex;align-items:center;gap:8px}
   .hero .shade{background:linear-gradient(180deg,#0005,#0008 35%,#000e 85%,#000)}
-  .hero .region-slot{top:auto;bottom:76px;transform:none;width:calc(50% - 28px);min-height:64px;padding:10px 12px;border:1px solid #ffffff36;border-radius:12px;background:#0009;gap:10px;justify-content:flex-start}
+  .hero .region-slot{top:auto;bottom:76px;transform:none;width:calc(50% - 28px);min-height:64px;padding:10px 12px;border:1px solid #ffffff36;border-radius:12px;background:rgba(0,0,0,.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);gap:0;justify-content:center;align-items:center;color:rgba(255,255,255,.72);transition:background .2s,color .2s}
+  .hero .region-slot:hover,.hero .region-slot:focus-visible{background:rgba(255,255,255,.14);color:#fff}
+  .hero .region-slot.left .region-arrow-caption,.hero .region-slot.right .region-arrow-caption{left:50%;right:auto;transform:translateX(-50%)}
   .hero .region-slot.left{left:20px}.hero .region-slot.right{right:20px}
   .hero .region-slot .orb{width:22px;height:22px;flex:none}
   .hero .region-name{font-size:17px}.hero .region-meta{font-size:8px;letter-spacing:.07em}
