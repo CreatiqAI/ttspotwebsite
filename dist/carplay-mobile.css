@@ -1,0 +1,48 @@
+/* The embedded phone dashboard stacks its map and controls; wide tablets stay unchanged. */
+@media(max-width:480px){ .phone-layout .device{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 54px;padding:6px;gap:6px;background:#381321}
+ .phone-layout .dock{grid-row:2;flex-direction:row;justify-content:space-around;padding:5px;gap:6px;border-radius:9px}
+ .phone-layout .dock .status{display:none}
+ .phone-layout .dock button, .phone-layout .dock button:first-of-type, .phone-layout .dock .launcher{width:42px;height:42px;margin:0;aspect-ratio:1}
+ .phone-layout .stage{grid-row:1;grid-column:1}
+ .phone-layout .dashboard{flex-direction:column;gap:6px;background:#381321}
+ .phone-layout .dashboard>.map{flex:1;min-height:200px;width:100%}
+ .phone-layout .dashboard .widgets{flex:0 0 190px;gap:6px;background:#381321}
+ .phone-layout .destinations{flex:0 0 62px;padding:3px;background:#171719}
+ .phone-layout .destinations .destination{font-size:11px;gap:3px;min-height:54px}
+ .phone-layout .destinations .destination svg, .phone-layout .destinations .destination .tt-shortcut-flag{width:26px;height:26px}
+ .phone-layout .dashboard .player{display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto 44px;gap:3px 10px;flex:1;padding:10px 12px;background:#171719;align-items:center}
+ .phone-layout .dashboard .player>.art{grid-row:1/3;width:40px;height:40px;max-width:none;max-height:none}
+ .phone-layout .dashboard .song{margin:0;text-align:left;font-size:12px}
+ .phone-layout .dashboard .artist{font-size:10px;text-align:left}
+ .phone-layout .dashboard .transport{grid-column:1/-1;height:44px;margin:0;gap:16px;width:100%}
+ .phone-layout .transport button{width:44px;height:44px;max-height:44px}
+ .phone-layout .transport img{width:24px;height:24px;padding:0}
+ .phone-layout .navigation.page.active{padding:6px;grid-template-columns:42px minmax(0,1fr);grid-template-rows:44px 44px minmax(0,1fr);gap:6px}
+ .phone-layout .navigation .app-head{gap:5px;font-size:12px}
+ .phone-layout .navigation .app-head>span{display:none}
+ .phone-layout .navigation .back{font-size:12px;padding:8px;min-height:40px}
+ .phone-layout .navigation select{max-width:53%;font-size:12px;min-height:40px}
+ .phone-layout .tt-search input{font-size:16px;padding:8px;max-width:100%}
+ .phone-layout .tt-search button{min-width:40px;font-size:11px;padding:4px}
+ .phone-layout .navigation .map-filters{gap:8px}
+ .phone-layout .navigation .map-filters button{min-height:58px;padding:4px 0;font-size:8px;border-radius:8px}
+ .phone-layout .navigation .tt-results{top:28px;left:4px;right:4px}
+ .phone-layout .navigation .tt-result{flex-basis:150px;height:64px}
+ .phone-layout .navigation .tt-event-detail{left:2px;right:2px;max-height:85%;flex-direction:column;padding:10px}
+ .phone-layout .navigation .map .tt-detail-image{width:54px;height:54px}
+ .phone-layout .tt-detail-body{padding-right:0}
+ .phone-layout .tt-detail-close{min-height:36px}
+ .phone-layout .tt-detail-actions{flex-wrap:wrap}
+ .phone-layout .tt-detail-actions a{min-height:40px;display:flex;align-items:center}
+ .phone-layout .tt-map-expand{min-height:36px;display:flex;align-items:center;font-size:11px}
+ .phone-layout .navigation .tt-map-expand{display:none}
+ .phone-layout .music-full .app-head{font-size:15px}
+ .phone-layout .app-page .back{min-height:44px;font-size:13px}
+ .phone-layout .music-full .music-body{flex-direction:column;justify-content:center;gap:24px}
+ .phone-layout .music-full .art{width:90px;max-height:100px}
+ .phone-layout .music-meta .song{font-size:16px}
+ .phone-layout .music-meta .artist{font-size:13px}
+ .phone-layout .contacts{flex-direction:column;gap:10px}
+ .phone-layout .contacts button{min-height:48px;font-size:16px}
+ .phone-layout .app-grid{grid-template-columns:1fr 1fr;gap:20px}
+}
