@@ -16,6 +16,6 @@
 - Run `node check-performance.cjs` for road/loading changes. Preserve lossless full-resolution assets and full-resolution detail images; use a new filename for changed media to invalidate its browser cache.
 - `dist/continuous-highway.js` is also embedded in `dist/index.html`; keep both synchronized when editing the road.
 - Preserve the existing intro, region backgrounds, road/car animation, music checkpoint, and CarPlay UI unless requested otherwise.
-- Forms are currently previews, not a working signup backend. Do not claim signups are collected.
+- Forms post to the Vercel API in `api/early-access.js`, which requires a deployed Google Apps Script and private Vercel environment variables. Follow `GOOGLE-SHEETS-SETUP.md`. Never claim collection is live until an end-to-end submission is verified in the sheet. Run `node --test tests/signup.test.cjs` for changes to registration; mocks do not establish live Google connectivity.
 - Preserve accurate event dates, past-event labels, and unconfirmed-time notices. Listing a business does not imply a TTSpot partnership.
 - Keep SEO metadata, canonical URL, JSON-LD, robots.txt and sitemap.xml aligned with the primary domain. Run `node check-seo.cjs` after SEO changes. CarPlay is noindex; do not block crawling its URL in robots.txt or Google cannot see that directive. Read `SEO-SETUP.md` for account steps and limitations.

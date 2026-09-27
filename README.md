@@ -8,6 +8,8 @@ Run `node serve.cjs`, then visit http://127.0.0.1:4173/.
 
 The editable website is in `dist/`; there is no build step.
 
+Registration uses a Vercel Function in `api/early-access.js` and the Google Apps Script in `integrations/google-sheets/Code.gs`. See [Google Sheets setup](GOOGLE-SHEETS-SETUP.md) for owner authorisation and the two private deployment variables. The static preview cannot submit registrations. Run `node --test tests/signup.test.cjs` for the mocked registration checks.
+
 ## Checks
 
 ```
