@@ -24,7 +24,7 @@
       return response.ok && data.configured===true;
     } catch { return false; }
   }
-  const ready=availability().then(configured=>{
+  availability().then(configured=>{
     notice.textContent=configured?'Your details will be saved securely for TTSpot early access or vendor updates, according to your selection.':'Registration is temporarily unavailable. Please check back soon.';
     notice.hidden=false;
     return configured;
@@ -43,9 +43,8 @@
     const key=JSON.stringify(payload);
     if(key!==lastPayload){lastPayload=key;submissionId=crypto.randomUUID();}
     try {
-      if(!await ready && !await availability())throw Error('Registration is temporarily unavailable. Please try again later.');
       const response=await window.TTSpotRegistrationRequest(JSON.stringify({...payload,submissionId}),()=>{
-        submit.textContent='CONFIRMING…';message.textContent='The connection is taking longer than usual. Checking your registration again…';
+        submit.textContent='WAITING FOR CONFIRMATION…';message.textContent='Google Sheets is taking longer to respond. Please keep this form open; we’ll confirm when your registration is saved.';
       });
       const result=await response.json().catch(()=>({}));
       if(response.status===409 && result.code==='duplicate')throw Error('This email or phone number is already registered. 此邮箱或电话号码已登记。');

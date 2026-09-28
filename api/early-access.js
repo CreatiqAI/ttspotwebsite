@@ -41,7 +41,7 @@ module.exports = async function handler(req, res) {
       (audience==='vendor' && (!businessName || !CATEGORIES.includes(businessCategory) || role!=='Automotive business')) ||
       (audience==='community' && role==='Automotive business')) return reply(400, {success:false, message:'Please check your email, phone number and required details.'});
   try {
-    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,phone,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:data.consent==='on'}),signal:AbortSignal.timeout(45000)});
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,phone,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:data.consent==='on'}),signal:AbortSignal.timeout(30000)});
     const result=await response.json();
     if(response.ok && result.code==='duplicate') return reply(409,{success:false,code:'duplicate',message:'This email or phone number is already registered. 此邮箱或电话号码已登记。'});
     if (!response.ok || result.success!==true || result.submissionId!==submissionId) throw Error('unconfirmed');
