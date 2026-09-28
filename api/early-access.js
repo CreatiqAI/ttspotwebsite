@@ -2,6 +2,14 @@
 const REGIONS = ['kl-selangor', 'johor', 'penang'];
 const ROLES = ['', 'Car enthusiast', 'Creator', 'Club organiser', 'Automotive business'];
 const CATEGORIES = ['Workshop / performance', 'Detailing / car wash', 'Tyres / rims', 'Tint / PPF / wraps', 'Accessories / car care', 'Automotive café', 'Other automotive business'];
+function normalizePhone(value) {
+  if (typeof value !== 'string' || value.length > 40 || !/^[+\d\s().-]+$/.test(value)) return '';
+  let phone=value.replace(/[\s().-]/g,'');
+  if(phone.startsWith('00'))phone='+'+phone.slice(2);
+  else if(phone.startsWith('0'))phone='+60'+phone.slice(1);
+  else if(phone.startsWith('60'))phone='+'+phone;
+  return /^\+[1-9]\d{7,14}$/.test(phone)?phone:'';
+}
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const reply = (code, data) => res.status(code).json(data);
@@ -27,13 +35,15 @@ module.exports = async function handler(req, res) {
   const email=text('email',254), region=text('region',30), role=text('role',50), audience=text('audience',20);
   const businessName=text('businessName',120) || '', businessCategory=text('businessCategory',80) || '';
   const submissionId=text('submissionId',36);
+  const phone=normalizePhone(data.phone);
   if (data.website || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !REGIONS.includes(region) || !ROLES.includes(role) ||
-      !['community','vendor'].includes(audience) || data.consent !== 'on' || !/^[a-f\d-]{36}$/i.test(submissionId || '') ||
+      !['community','vendor'].includes(audience) || !phone || ![undefined,'on',false].includes(data.consent) || !/^[a-f\d-]{36}$/i.test(submissionId || '') ||
       (audience==='vendor' && (!businessName || !CATEGORIES.includes(businessCategory) || role!=='Automotive business')) ||
-      (audience==='community' && role==='Automotive business')) return reply(400, {success:false, message:'Please check your details and consent.'});
+      (audience==='community' && role==='Automotive business')) return reply(400, {success:false, message:'Please check your email, phone number and required details.'});
   try {
-    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:true}),signal:AbortSignal.timeout(45000)});
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,phone,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:data.consent==='on'}),signal:AbortSignal.timeout(45000)});
     const result=await response.json();
+    if(response.ok && result.code==='duplicate') return reply(409,{success:false,code:'duplicate',message:'This email or phone number is already registered. 此邮箱或电话号码已登记。'});
     if (!response.ok || result.success!==true || result.submissionId!==submissionId) throw Error('unconfirmed');
     return reply(200,{success:true});
   } catch {

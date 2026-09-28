@@ -18,13 +18,13 @@ The existing form posts to `/api/early-access` on Vercel. That server forwards v
 
 ## Captured columns
 
-Submission ID, UTC timestamp, email, region, audience (community/vendor), role, business name, business category, consent, consent wording and source website. No IP address is stored. Consent is required. Only vendor submissions include business details.
+Submission ID, UTC timestamp, email, region, audience (community/vendor), role, business name, business category, consent, consent wording and source website. No IP address is stored. Phone is required (Malaysian local format or international country code); email-update consent is optional and stored as Yes/No. Only vendor submissions include business details.
 
 ## Behavior and operation
 
 - Missing configuration returns 503; the site displays an unavailable message and never claims a registration was saved.
 - A success message requires the Google script to flush the row and acknowledge the matching submission ID.
-- Retries of the same unchanged form use the same ID. The sheet checks that ID under a script lock to prevent duplicate rows. Separate new registrations are not deduplicated by email.
+- Retries of the same unchanged form use the same ID. The sheet checks that ID under a script lock to prevent duplicate rows. New submission IDs are rejected when either the normalized email or phone already exists in Registrations; checks and writes share the same lock.
 - Formula-like input is escaped before writing. Backend errors do not log form data or secrets.
 - A honeypot and origin checks reject basic spam. They do not replace a distributed rate limit or CAPTCHA. Configure a Vercel firewall rate limit for POST `/api/early-access` before a large campaign.
 - Keep sheet access limited to authorised team members. Marketing unsubscribe/deletion handling remains an operational responsibility; this integration does not send emails.
@@ -32,3 +32,9 @@ Submission ID, UTC timestamp, email, region, audience (community/vendor), role, 
 - Apps Script updates require a new deployment version. Vercel environment changes require redeployment. Google quotas apply.
 
 References: [Apps Script web apps](https://developers.google.com/apps-script/guides/web), [script locks](https://developers.google.com/apps-script/reference/lock/lock-service), [Vercel Node functions](https://vercel.com/docs/functions/runtimes/node-js).
+
+## Registration v2
+
+After saving Code.gs, run `setupRegistrationSheets` once, then update the existing web-app deployment to a new version (keep its URL and access settings). It appends Phone at column L without replacing old records. Car Enthusiasts, Creators, Club Organisers, Automotive Businesses and General are live FILTER views of the master. Make record corrections in Registrations, not inside the formula views. Existing registrations with no phone retain blank phone cells; email duplicate detection still includes them.
+
+The website requires a phone and displays Congratulations only after a confirmed write. A duplicate returns HTTP 409 with a combined email/phone notice and does not modify the existing record or its subscription consent. Unchecked email updates do not prevent registration or imply marketing permission. This does not send emails or verify phone ownership.

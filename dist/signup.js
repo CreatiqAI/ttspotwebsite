@@ -3,6 +3,9 @@
   const form=document.querySelector('#early-access form');
   const submit=form.querySelector('[type=submit]');
   const notice=document.querySelector('#early-access .demo');
+  const dialog=document.querySelector('#early-access'),ending=dialog.querySelector('.signup-ending');
+  function resetView(){dialog.classList.remove('completed');ending.hidden=true;dialog.setAttribute('aria-labelledby','form-title');}
+  dialog.querySelector('.ending-close').addEventListener('click',()=>dialog.querySelector('.close').click());
   let pending=false, lastPayload='', submissionId='';
   async function availability() {
     try {
@@ -16,19 +19,28 @@
     notice.hidden=false;
     return configured;
   });
-  window.TTSpotSignup={submit:async(audience)=>{
+  window.TTSpotSignup={resetView,submit:async(audience)=>{
     if(pending)return;
     const message=form.querySelector('.message');
     pending=true;submit.disabled=true;submit.textContent='SUBMITTING…';message.textContent='';
     const payload={...Object.fromEntries(new FormData(form)),audience};
+    let phone=(payload.phone||'').replace(/[\s().-]/g,'');
+    if(phone.startsWith('00'))phone='+'+phone.slice(2);else if(phone.startsWith('0'))phone='+60'+phone.slice(1);else if(phone.startsWith('60'))phone='+'+phone;
+    if(!/^[+\d\s().-]+$/.test(payload.phone||'')||!/^\+[1-9]\d{7,14}$/.test(phone)){
+      form.querySelector('#phone-error').textContent='Enter a valid phone number, including country code for non-Malaysian numbers.';form.elements.phone.setAttribute('aria-invalid','true');form.elements.phone.focus();pending=false;submit.disabled=false;submit.textContent=audience==='vendor'?'REGISTER VENDOR INTEREST':'REGISTER MY INTEREST';return;
+    }
+    payload.phone=phone;
     const key=JSON.stringify(payload);
     if(key!==lastPayload){lastPayload=key;submissionId=crypto.randomUUID();}
     try {
       if(!await ready && !await availability())throw Error('Registration is temporarily unavailable. Please try again later.');
       const response=await fetch('/api/early-access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,submissionId}),signal:AbortSignal.timeout(55000)});
       const result=await response.json();
+      if(response.status===409 && result.code==='duplicate')throw Error('This email or phone number is already registered. 此邮箱或电话号码已登记。');
       if(!response.ok || result.success!==true)throw Error(response.status===503?'Registration is temporarily unavailable. Please try again later.':'We couldn’t confirm your registration. Please retry.');
-      message.textContent=audience==='vendor'?'Your partnership interest has been received. We’ll email you about next steps.':'You’re on the list. We’ll email you about launch and early access.';
+      ending.querySelector('.ending-copy').textContent=audience==='vendor'?'Your partnership interest is registered. Your next chapter with TTSpot starts here.':'You’re on the early-access list. Jom, be part of Malaysia’s car community.';
+      ending.querySelector('.ending-updates').textContent=payload.consent==='on'?'You’ve opted in to TTSpot email updates.':'Your registration is saved. You haven’t subscribed to marketing emails.';
+      ending.hidden=false;dialog.classList.add('completed');dialog.setAttribute('aria-labelledby','signup-ending-title');dialog.scrollTop=0;ending.querySelector('h2').focus();
       form.reset();form.elements.role.value=payload.role;lastPayload='';submissionId='';
     } catch(error) {
       message.textContent=error.message==='Failed to fetch'||error.name==='TimeoutError'?'We couldn’t confirm your registration. Please check your connection and retry.':error.message;
