@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited · TT Spot</title>
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="You've been invited to TT Spot, Malaysia's car community. Use your invite code when you sign up.">
+<link rel="icon" href="/ttspot-app-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&display=swap">
+<style>
+  :root { --brand:#E00008; --ink:#101010; --text:#1c1c1c; --muted:#6b6b6b; --bg:#ffffff; --card:#f4f4f4; --line:#ececec; }
+  @media (prefers-color-scheme: dark) { :root { --ink:#ffffff; --text:#e6e6e6; --muted:#9a9a9a; --bg:#101010; --card:#1b1b1b; --line:#262626; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 Inter, system-ui, -apple-system, sans-serif; padding-block:0 56px; padding-inline:20px; }
+  header { max-width:560px; margin:0 auto; padding:24px 0 8px; display:flex; align-items:center; gap:10px; }
+  header img { width:34px; height:34px; border-radius:9px; }
+  header b { font-family:'Barlow Condensed', Impact, sans-serif; font-size:24px; letter-spacing:.5px; color:var(--ink); }
+  header b span { color:var(--brand); }
+  main { max-width:560px; margin:0 auto; }
+  .hero { margin-top:14px; background:var(--card); border-radius:28px; display:flex; align-items:flex-end; justify-content:center; height:240px; overflow:hidden; position:relative; }
+  .hero img { height:220px; width:auto; }
+  .bubble { position:absolute; left:16px; bottom:16px; max-width:230px; background:var(--ink); color:var(--bg); border-radius:18px 18px 18px 4px; padding:10px 14px; font-size:14.5px; }
+  h1 { font-family:'Barlow Condensed', Impact, sans-serif; font-weight:800; font-size:44px; line-height:1; margin:28px 0 8px; color:var(--ink); text-transform:uppercase; text-wrap:balance; }
+  .sub { color:var(--muted); margin:0 0 22px; }
+  .code { display:flex; align-items:center; justify-content:space-between; gap:12px; border:2px dashed var(--line); border-radius:20px; padding:16px 18px; }
+  .code small { display:block; font-size:11px; font-weight:700; letter-spacing:1.6px; color:var(--muted); }
+  .code strong { font-family:'Barlow Condensed', Impact, sans-serif; font-size:44px; letter-spacing:6px; color:var(--ink); line-height:1.1; }
+  button { font:600 15px Inter, system-ui, sans-serif; border:0; border-radius:14px; padding:12px 16px; cursor:pointer; min-height:46px; }
+  .copy { background:var(--ink); color:var(--bg); }
+  ol { padding-left:0; list-style:none; counter-reset:s; margin:26px 0; display:grid; gap:14px; }
+  ol li { counter-increment:s; display:flex; gap:12px; align-items:flex-start; }
+  ol li::before { content:counter(s); flex:0 0 26px; height:26px; border-radius:13px; background:var(--brand); color:#fff; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .cta { display:block; text-align:center; background:var(--brand); color:#fff; text-decoration:none; font-weight:700; border-radius:16px; padding:15px; }
+  .note { color:var(--muted); font-size:13px; margin-top:12px; text-align:center; }
+  footer { max-width:560px; margin:40px auto 0; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; display:flex; gap:16px; flex-wrap:wrap; }
+  footer a { color:var(--muted); }
+</style>
+</head>
+<body>
+<header><img src="/ttspot-app-logo.png" alt=""><b><span>TT</span>SPOT</b></header>
+<main>
+  <div class="hero">
+    <img src="/titi-wave.png" alt="TiTi, the TT Spot cone, waving">
+    <div class="bubble" id="bubble">Hi, I'm TiTi. Come drive with us.</div>
+  </div>
+  <h1 id="title">You're invited to TT Spot</h1>
+  <p class="sub" id="sub">Malaysia's car community: meets, TT sessions and good spots on one map.</p>
+  <div class="code" id="codebox" hidden>
+    <div><small id="codelabel">YOUR INVITE CODE</small><strong id="code">------</strong></div>
+    <button class="copy" id="copy" type="button">Copy</button>
+  </div>
+  <ol>
+    <li><span>Get the TT Spot app. It's in early access, so register below and we'll send you the download link.</span></li>
+    <li><span>Sign up and add your car.</span></li>
+    <li><span id="step3">Enter the code above when TT Spot asks for a referral code.</span></li>
+  </ol>
+  <a class="cta" href="/#early-access">Get early access</a>
+  <p class="note">Already have the app? Open it and enter the code in Me → Invite friends, or at sign-up.</p>
+</main>
+<footer><a href="/">ttspot.my</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></footer>
+<script>
+  // /r/ABC123 = a member's referral code, /e/ABC123 = an event's invite code.
+  (function () {
+    var parts = location.pathname.split('/').filter(Boolean);
+    var kind = parts[0] === 'e' ? 'event' : 'member';
+    var code = (parts[1] || new URLSearchParams(location.search).get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    if (code.length === 6) {
+      document.getElementById('code').textContent = code;
+      document.getElementById('codebox').hidden = false;
+    }
+    if (kind === 'event') {
+      document.getElementById('title').textContent = "You're invited to a meet";
+      document.getElementById('sub').textContent = 'Join the event on TT Spot to get its announcements, check in when you arrive and enter the lucky draw.';
+      document.getElementById('bubble').textContent = 'See you at the meet!';
+      document.getElementById('codelabel').textContent = 'EVENT CODE';
+      document.getElementById('step3').textContent = 'Enter the event code when TT Spot asks for a referral code. You are linked to the event straight away.';
+    }
+    var btn = document.getElementById('copy');
+    btn.addEventListener('click', function () {
+      var text = document.getElementById('code').textContent;
+      function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { selectCode(); });
+      } else { selectCode(); }
+    });
+    function selectCode() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('code'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  })();
+</script>
+</body>
+</html>
