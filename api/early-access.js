@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
       (audience==='vendor' && (!businessName || !CATEGORIES.includes(businessCategory) || role!=='Automotive business')) ||
       (audience==='community' && role==='Automotive business')) return reply(400, {success:false, message:'Please check your details and consent.'});
   try {
-    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:true}),signal:AbortSignal.timeout(18000)});
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret,submissionId,email:email.toLowerCase(),region,role,audience,businessName:audience==='vendor'?businessName:'',businessCategory:audience==='vendor'?businessCategory:'',consent:true}),signal:AbortSignal.timeout(45000)});
     const result=await response.json();
     if (!response.ok || result.success!==true || result.submissionId!==submissionId) throw Error('unconfirmed');
     return reply(200,{success:true});

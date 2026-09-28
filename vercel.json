@@ -4,6 +4,7 @@
   "installCommand": "",
   "buildCommand": "",
   "outputDirectory": "dist",
+  "functions": {"api/early-access.js": {"maxDuration": 60}},
   "headers": [
     {
       "source": "/:path*\\.(webp|png|jpg|jpeg|svg|mp4|mp3|woff2)",

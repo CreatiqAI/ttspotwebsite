@@ -25,7 +25,7 @@
     if(key!==lastPayload){lastPayload=key;submissionId=crypto.randomUUID();}
     try {
       if(!await ready && !await availability())throw Error('Registration is temporarily unavailable. Please try again later.');
-      const response=await fetch('/api/early-access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,submissionId}),signal:AbortSignal.timeout(25000)});
+      const response=await fetch('/api/early-access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,submissionId}),signal:AbortSignal.timeout(55000)});
       const result=await response.json();
       if(!response.ok || result.success!==true)throw Error(response.status===503?'Registration is temporarily unavailable. Please try again later.':'We couldn’t confirm your registration. Please retry.');
       message.textContent=audience==='vendor'?'Your partnership interest has been received. We’ll email you about next steps.':'You’re on the list. We’ll email you about launch and early access.';
