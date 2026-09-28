@@ -3,6 +3,25 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const handler=require('../api/early-access');
 const payload={email:'driver@example.com',phone:'012 345 6789',region:'penang',role:'Car enthusiast',audience:'community',consent:'on',submissionId:'12345678-1234-1234-1234-123456789abc'};
+test('browser retries temporary failures once with identical submission data, but never retries duplicates',async()=>{
+  for(const first of [502,504,'network',200,400,409,503]){
+    const bodies=[];let retries=0;
+    const context={window:{},AbortSignal,setTimeout:resolve=>resolve(),fetch:async(url,options)=>{
+      bodies.push(options.body);
+      if(bodies.length===1 && first==='network')throw new TypeError('Failed to fetch');
+      return {status:bodies.length===1?first:200};
+    }};
+    vm.createContext(context);vm.runInContext(fs.readFileSync('dist/signup-request.js','utf8'),context);
+    const body=JSON.stringify(payload),result=await context.window.TTSpotRegistrationRequest(body,()=>retries++);
+    const retried=[502,504,'network'].includes(first);
+    assert.equal(bodies.length,retried?2:1);assert.equal(retries,retried?1:0);
+    assert(bodies.every(sent=>sent===body));assert.equal(result.status,retried?200:first);
+  }
+  let calls=0;
+  const context={window:{},AbortSignal,setTimeout:r=>r(),fetch:async()=>{calls++;throw new TypeError('offline')}};
+  vm.createContext(context);vm.runInContext(fs.readFileSync('dist/signup-request.js','utf8'),context);
+  await assert.rejects(context.window.TTSpotRegistrationRequest('{}',()=>{}));assert.equal(calls,2);
+});
 async function call(body=payload,method='POST',origin='https://ttspotwebsite.vercel.app') {
   const result={headers:{}};
   await handler({method,headers:{origin,'content-type':'application/json'},body},{setHeader(k,v){result.headers[k]=v},status(code){result.status=code;return this},json(data){result.data=data}});

@@ -44,10 +44,12 @@
     if(key!==lastPayload){lastPayload=key;submissionId=crypto.randomUUID();}
     try {
       if(!await ready && !await availability())throw Error('Registration is temporarily unavailable. Please try again later.');
-      const response=await fetch('/api/early-access',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,submissionId}),signal:AbortSignal.timeout(55000)});
-      const result=await response.json();
+      const response=await window.TTSpotRegistrationRequest(JSON.stringify({...payload,submissionId}),()=>{
+        submit.textContent='CONFIRMING…';message.textContent='The connection is taking longer than usual. Checking your registration again…';
+      });
+      const result=await response.json().catch(()=>({}));
       if(response.status===409 && result.code==='duplicate')throw Error('This email or phone number is already registered. 此邮箱或电话号码已登记。');
-      if(!response.ok || result.success!==true)throw Error(response.status===503?'Registration is temporarily unavailable. Please try again later.':'We couldn’t confirm your registration. Please retry.');
+      if(!response.ok || result.success!==true)throw Error(response.status===400?'Please check your email, phone number and required details.':response.status===503?'Registration is temporarily unavailable. Please try again later.':'The registration service could not confirm your entry. Please retry shortly; the same entry will not be added twice. 暂时无法确认登记，请稍后重试。');
       ending.querySelector('.ending-copy').textContent=audience==='vendor'?'Your partnership interest is registered. Your next chapter with TTSpot starts here.':'You’re on the early-access list. Jom, be part of Malaysia’s car community.';
       ending.querySelector('.ending-updates').textContent=payload.consent==='on'?'You’ve opted in to TTSpot email updates.':'Your registration is saved. You haven’t subscribed to marketing emails.';
       ending.hidden=false;dialog.classList.add('completed');dialog.setAttribute('aria-labelledby','signup-ending-title');dialog.scrollTop=0;ending.querySelector('h2').focus();
