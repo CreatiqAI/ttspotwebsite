@@ -4,6 +4,9 @@
   const submit=form.querySelector('[type=submit]');
   const notice=document.querySelector('#early-access .demo');
   const dialog=document.querySelector('#early-access'),ending=dialog.querySelector('.signup-ending');
+  const status=form.querySelector('.message');
+  // Keep feedback above the action, visible even in short mobile dialogs.
+  submit.before(status);
   function resetView(){dialog.classList.remove('completed');ending.hidden=true;dialog.setAttribute('aria-labelledby','form-title');}
   dialog.querySelector('.ending-close').addEventListener('click',()=>dialog.querySelector('.close').click());
   let pending=false, lastPayload='', submissionId='';
@@ -32,19 +35,20 @@
   window.TTSpotSignup={resetView,submit:async(audience)=>{
     if(pending)return;
     const message=form.querySelector('.message');
-    pending=true;submit.disabled=true;submit.textContent='SUBMITTING…';message.textContent='';
+    pending=true;submit.disabled=true;submit.textContent='SENDING…';message.textContent='Sending your registration… 正在发送登记资料…';message.classList.add('is-pending');
     const payload={...Object.fromEntries(new FormData(form)),audience};
     let phone=(payload.phone||'').replace(/[\s().-]/g,'');
     if(phone.startsWith('00'))phone='+'+phone.slice(2);else if(phone.startsWith('0'))phone='+60'+phone.slice(1);else if(phone.startsWith('60'))phone='+'+phone;
     if(!/^[+\d\s().-]+$/.test(payload.phone||'')||!/^\+[1-9]\d{7,14}$/.test(phone)){
-      form.querySelector('#phone-error').textContent='Enter a valid phone number, including country code for non-Malaysian numbers.';form.elements.phone.setAttribute('aria-invalid','true');form.elements.phone.focus();pending=false;submit.disabled=false;submit.textContent=audience==='vendor'?'REGISTER VENDOR INTEREST':'REGISTER MY INTEREST';return;
+      form.querySelector('#phone-error').textContent='Enter a valid phone number, including country code for non-Malaysian numbers.';form.elements.phone.setAttribute('aria-invalid','true');form.elements.phone.focus();pending=false;submit.disabled=false;message.textContent='';message.classList.remove('is-pending');submit.textContent=audience==='vendor'?'REGISTER VENDOR INTEREST':'REGISTER MY INTEREST';return;
     }
     payload.phone=phone;
     const key=JSON.stringify(payload);
     if(key!==lastPayload){lastPayload=key;submissionId=crypto.randomUUID();}
     try {
       const response=await window.TTSpotRegistrationRequest(JSON.stringify({...payload,submissionId}),()=>{
-        submit.textContent='WAITING FOR CONFIRMATION…';message.textContent='Google Sheets is taking longer to respond. Please keep this form open; we’ll confirm when your registration is saved.';
+        submit.textContent='CONFIRMING REGISTRATION…';message.textContent='Still confirming your registration. No need to submit again. Keep this page open for the result. 正在确认登记，请勿重复提交，稍候会显示结果。';
+        message.scrollIntoView({block:'nearest',behavior:'smooth'});
       });
       const result=await response.json().catch(()=>({}));
       if(response.status===409 && result.code==='duplicate')throw Error('This email or phone number is already registered. 此邮箱或电话号码已登记。');
@@ -56,7 +60,7 @@
     } catch(error) {
       message.textContent=error.message==='Failed to fetch'||error.name==='TimeoutError'?'We couldn’t confirm your registration. Please check your connection and retry.':error.message;
     } finally {
-      pending=false;submit.disabled=false;submit.textContent=audience==='vendor'?'REGISTER VENDOR INTEREST':'REGISTER MY INTEREST';
+      pending=false;submit.disabled=false;message.classList.remove('is-pending');submit.textContent=audience==='vendor'?'REGISTER VENDOR INTEREST':'REGISTER MY INTEREST';
     }
   }};
 })();

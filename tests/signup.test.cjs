@@ -11,7 +11,7 @@ test('browser bounds submission, clears slow notice timer and does not automatic
   vm.createContext(context);vm.runInContext(fs.readFileSync('dist/signup-request.js','utf8'),context);
   if(status==='network')await assert.rejects(context.window.TTSpotRegistrationRequest(body,()=>{}));
   else assert.equal((await context.window.TTSpotRegistrationRequest(body,()=>{})).status,status);
-  assert.equal(calls,1);assert(cleared);assert.equal(timeout,35000);assert.equal(slowDelay,6000);
+  assert.equal(calls,1);assert(cleared);assert.equal(timeout,35000);assert.equal(slowDelay,4000);
  }
 });
 async function call(body=payload,method='POST',origin='https://ttspotwebsite.vercel.app') {
@@ -19,6 +19,14 @@ async function call(body=payload,method='POST',origin='https://ttspotwebsite.ver
   await handler({method,headers:{origin,'content-type':'application/json'},body},{setHeader(k,v){result.headers[k]=v},status(code){result.status=code;return this},json(data){result.data=data}});
   return result;
 }
+test('slow registration gives feedback by four seconds without reporting success or resubmitting',async()=>{
+ let tick,finish,delay,feedback=0,settled=false,calls=0,cleared=false;
+ const context={window:{},AbortSignal,setTimeout:(fn,ms)=>{tick=fn;delay=ms;return 1},clearTimeout:()=>{cleared=true},fetch:()=>{calls++;return new Promise(resolve=>finish=resolve)}};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('dist/signup-request.js','utf8'),context);
+ const request=context.window.TTSpotRegistrationRequest(JSON.stringify(payload),()=>feedback++).then(r=>{settled=true;return r});
+ assert(delay<=5000);tick();assert.equal(feedback,1);assert.equal(settled,false);assert.equal(calls,1);
+ finish({status:409});assert.equal((await request).status,409);assert(cleared);
+});
 test('registration API validates and only confirms a verified Google write',async()=>{
  const originalFetch=global.fetch;
  const saved={...process.env};
