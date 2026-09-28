@@ -47,3 +47,12 @@ Checks: check-performance.cjs, check-events.cjs, check-music.cjs and check-seo.c
 No unresolved P0/P1/P2 visual findings. P3: photography is an editorial generated scene rather than the exact reference photographs; existing brand assets and actual listings are used.
 
 final result: passed
+
+## 2026-09-28 — Mobile closing chapter reference correction
+- Replaced the squeezed final CTA with a mobile-only garage photograph, two-line heading, full-width early-access CTA, three icon links and centered community tagline.
+- Rebuilt mobile footer as vertical navigation and two stacked CTAs. Reset inherited absolute navigation positioning; desktop mobile-only navigation is explicitly hidden.
+- Visual QA: 390x844 and 320x844, no horizontal overflow. Early-access button opens the existing form. Finish prompt still triggers above the footer.
+- Desktop 1440x900: hero, experience, discovery, vendors, FAQ, final CTA and footer geometry matches the pre-change baseline (footer 345.59375px).
+- Reference comparison: automotive photo-led CTA and vertical footer hierarchy matched; existing legal links retained, no invented social destinations. Full-resolution generated garage photo stored as optimized WebP.
+- Checks: check-performance.cjs, check-seo.cjs, git diff --check passed.
+- Result: passed.

@@ -84,3 +84,29 @@
  .mobile-feature-detail summary small{font-size:10px;line-height:1.45;color:#a6a6ac;font-weight:400;padding-right:3px}
  .road-journey .experience .feature>.feature-top{top:26px}
 }
+/* Closing chapter: one full-width phone composition; desktop remains unchanged. */
+@media(max-width:760px){
+ .road-journey .final-invite{display:block!important;position:relative;z-index:5;padding:0 24px!important;background:#030405!important;min-height:0!important}
+ .road-journey .final-invite>*:not(.mobile-ending){display:none!important}
+ .road-journey .final-invite .mobile-ending[hidden]{display:block!important;grid-column:auto!important;grid-row:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#030405!important;text-align:left}
+ .mobile-ending-photo{height:340px;margin:0 -24px 24px;background:#030405 url('mobile-garage-v1.webp') center 40%/cover}
+ .road-journey .final-invite .mobile-ending h2{font-size:clamp(34px,9.5vw,52px)!important;line-height:1!important;letter-spacing:-.02em;margin:0 0 14px!important;width:100%!important;max-width:none!important;grid-column:auto!important;grid-row:auto!important;padding:0!important}
+ .mobile-ending h2 em{color:#f00028}.road-journey .mobile-ending>p{font-size:14px;line-height:1.6;margin:0 0 24px;color:#ddd;width:100%;max-width:none}
+ .road-journey .mobile-ending .primary{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;padding:16px 20px;font-size:13px;line-height:1.3;white-space:normal;border-radius:30px;margin:0}
+ .mobile-ending-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:30px 0;border-bottom:1px solid #252528}
+ .mobile-ending-pillars a{display:flex;align-items:center;flex-direction:column;gap:10px;color:white;font-size:12px;text-decoration:none;min-height:68px}
+ .mobile-ending-pillars svg{width:42px;height:42px;padding:11px;border:1px solid #53212a;border-radius:50%;background:#17070c;color:#ff1639}
+ .road-journey .mobile-ending .mobile-ending-tagline{font-size:11px;letter-spacing:.16em;text-align:center;line-height:1.9;padding:25px 0;margin:0}
+ .tt-footer{display:flex!important;flex-direction:column;align-items:stretch;padding:36px 24px 90px!important;gap:24px!important;background:#030405!important;border-top:1px solid #3a141d}
+ .tt-footer>*{width:100%;max-width:none;min-width:0;grid-column:auto!important}
+ .tt-footer .footer-brand{gap:10px}.tt-footer .footer-brand img{width:36px;height:36px;border-radius:6px}.tt-footer .footer-brand strong{font-size:23px}
+ .tt-footer-intro>p,.tt-footer-intro>small,.tt-footer>nav:not(.mobile-footer-nav),.tt-footer-join>strong,.tt-footer-join>p{display:none!important}
+ .tt-footer .mobile-footer-nav[hidden]{display:flex!important;flex-direction:column;align-items:stretch;gap:0}
+ .mobile-footer-nav a{font-size:14px;min-height:44px;padding:10px 0;line-height:24px;color:#eee}
+ .tt-footer .tt-footer-join{border:0;padding:0;gap:12px;align-items:stretch}
+ .tt-footer .tt-footer-join button{width:100%;min-height:50px;border-radius:30px;display:flex;align-items:center;justify-content:center;font-size:13px}
+ .tt-footer .tt-footer-join .vendor-signup{border:1px solid #ef002b;padding:12px;background:transparent}
+ .tt-footer-bottom{align-items:center!important;text-align:center;border-color:#252528;padding-top:25px;gap:14px;font-size:10px;line-height:1.6}
+ .tt-footer-bottom nav{justify-content:center;gap:12px;font-size:11px}
+}
+@media(max-width:760px){.tt-footer nav{position:static!important;inset:auto!important;width:100%;padding:0!important;margin:0;border:0!important;border-radius:0;background:transparent!important;box-shadow:none!important;transform:none!important}.tt-footer .tt-footer-bottom nav{justify-content:center}}
