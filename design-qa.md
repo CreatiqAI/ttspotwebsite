@@ -56,3 +56,8 @@ final result: passed
 - Reference comparison: automotive photo-led CTA and vertical footer hierarchy matched; existing legal links retained, no invented social destinations. Full-resolution generated garage photo stored as optimized WebP.
 - Checks: check-performance.cjs, check-seo.cjs, git diff --check passed.
 - Result: passed.
+
+## 2026-09-28 — Mobile ending highway clearance
+- Reserved a 52px left lane outside the closing section so its photo and opaque content never cover the road or animated car. Adjusted mobile heading scale to retain usable content width.
+- Browser verified at 390px: uninterrupted road beside photo, heading and CTA. At 320px: photo starts at x=52, content width 221px, no horizontal overflow. All changes remain within max-width:760px.
+- check-performance.cjs and git diff --check passed. Screenshot: ../mobile-road-clear.png. Result: passed.
