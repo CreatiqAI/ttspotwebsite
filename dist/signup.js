@@ -7,6 +7,16 @@
   function resetView(){dialog.classList.remove('completed');ending.hidden=true;dialog.setAttribute('aria-labelledby','form-title');}
   dialog.querySelector('.ending-close').addEventListener('click',()=>dialog.querySelector('.close').click());
   let pending=false, lastPayload='', submissionId='';
+  // Format on blur so editing and cursor movement stay predictable.
+  form.elements.phone.addEventListener('blur',()=>{
+    const input=form.elements.phone;
+    let phone=input.value.trim().replace(/[\s().-]/g,'');
+    if(phone.startsWith('00'))phone='+'+phone.slice(2);
+    else if(phone.startsWith('0'))phone='+60'+phone.slice(1);
+    else if(phone.startsWith('60'))phone='+'+phone;
+    const match=phone.match(/^\+60(1\d)(\d{3,4})(\d{4})$/);
+    if(match)input.value='+60'+match[1]+'-'+match[2]+' '+match[3];
+  });
   async function availability() {
     try {
       const response=await fetch('/api/early-access',{cache:'no-store',signal:AbortSignal.timeout(8000)});
