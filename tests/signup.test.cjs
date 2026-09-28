@@ -27,6 +27,7 @@ test('registration API validates and only confirms a verified Google write',asyn
   assert.equal((await call({},'DELETE')).status,405);
   assert.equal((await call({padding:'x'.repeat(9000)})).status,413);
   assert.equal(requests,0);
+  for (const origin of ['https://www.ttspot.my','https://ttspot.my']) assert.equal((await call(payload,'POST',origin)).status,200);
   const good=await call();assert.equal(good.status,200);assert.deepEqual(good.data,{success:true});
   assert.equal((await call({...payload,audience:'vendor',role:'Automotive business',businessName:'TT Workshop',businessCategory:'Workshop / performance'})).status,200);
   global.fetch=async()=>({ok:true,json:async()=>({success:false})});assert.equal((await call()).status,502);

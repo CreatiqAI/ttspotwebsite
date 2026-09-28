@@ -10,7 +10,7 @@ module.exports = async function handler(req, res) {
   const configured = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(endpoint) && secret.length >= 32;
   if (req.method === 'GET') return reply(200, {configured});
   if (req.method !== 'POST') { res.setHeader('Allow', 'GET, POST'); return reply(405, {success:false}); }
-  const origins = new Set(['https://ttspotwebsite.vercel.app', ...(process.env.SIGNUP_ALLOWED_ORIGINS || '').split(',').map(x=>x.trim()).filter(Boolean)]);
+  const origins = new Set(['https://ttspotwebsite.vercel.app', 'https://www.ttspot.my', 'https://ttspot.my', ...(process.env.SIGNUP_ALLOWED_ORIGINS || '').split(',').map(x=>x.trim()).filter(Boolean)]);
   if (process.env.NODE_ENV !== 'production') origins.add('http://127.0.0.1:4173');
   if (!origins.has(req.headers.origin)) return reply(403, {success:false});
   if (!(req.headers['content-type'] || '').toLowerCase().startsWith('application/json')) return reply(415, {success:false});
