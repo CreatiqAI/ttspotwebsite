@@ -91,3 +91,10 @@
 .partner-carousel{position:relative}
 .partner-page-status{padding-right:105px}
 .partner-autoplay{position:absolute;right:14px;bottom:7px;background:#000;color:#fff;border:1px solid #ed0029;border-radius:6px;padding:5px 8px;font:10px Arial;cursor:pointer}
+/* Preserve supplied artwork while framing the brand marks within each card. */
+.partner-logo-window{position:relative;display:block;width:100%;aspect-ratio:5;overflow:hidden}
+.partner-logo .partner-logo-window img{position:absolute;top:50%;left:0;width:100%;height:auto;max-width:none;transform:translateY(-50%)}
+.typeone-logo .partner-logo-window{aspect-ratio:3}
+.partner-address{margin-top:8px;font-size:11px;color:#bbb;line-height:1.6;text-align:left}
+.partner-address summary{cursor:pointer;text-align:center;min-height:32px;color:#ddd}
+.partner-address address{font-style:normal;margin:8px 0;overflow-wrap:anywhere}
