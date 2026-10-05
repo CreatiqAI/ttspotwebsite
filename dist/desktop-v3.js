@@ -11,7 +11,7 @@ document.querySelectorAll('.mobile-events [data-open-map]').forEach(el=>el.addEv
 /* Light fade/slide reveal for the new sections (300 ms; off with reduced motion). */
 if(wide.matches&&!reduced.matches&&'IntersectionObserver' in window){
  const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('m-in');io.unobserve(entry.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.01});
- document.querySelectorAll('.m-cards h2,.m-cards .m-line,.m-cards .m-tag,.m-cards .m-fan-hint,.m-fan,.mobile-events h2,.mobile-events .mobile-events-note,.mobile-events .mobile-map-cta,.m-events-track li').forEach(el=>{
+ document.querySelectorAll('.m-what-head,.m-what .app-tile,.m-cards h2,.m-cards .m-line,.m-cards .m-tag,.m-cards .m-fan-hint,.m-fan,.mobile-events h2,.mobile-events .mobile-events-note,.mobile-events .mobile-map-cta,.m-events-track li').forEach(el=>{
   const siblings=[...el.parentElement.children].filter(c=>c.tagName===el.tagName);el.style.setProperty('--m-delay',Math.min(3,siblings.indexOf(el))*70+'ms');
   el.classList.add('m-reveal');io.observe(el);
  });

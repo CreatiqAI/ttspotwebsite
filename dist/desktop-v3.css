@@ -108,14 +108,24 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 /* ---------- Road: one straight centre lane through How it works and the features; no milestone markers ---------- */
 .road-journey .experience>.road-milestones{display:none!important}
 
-/* ---------- Features along the winding road: TiTi on each card, one line each ---------- */
-.road-journey .experience .section-top .intro p{margin:0 0 18px}
-.road-journey .experience .feature{grid-template-columns:90px 1fr;transition:opacity .55s ease,transform .65s ease,visibility .55s,border-color .2s,box-shadow .2s}
-.road-journey .experience .feature .feature-icon,.road-journey .experience .feature p.feature-cn,.road-journey .experience .feature-footnote{display:none}
-.road-journey .experience .feature-top{align-self:center}
-.d-titi{display:block;width:auto;height:96px;margin:-8px 0 -8px -8px;filter:drop-shadow(0 8px 14px #000a)}
-.road-journey .experience .feature h3{margin:0 0 6px}
-.road-journey .experience .feature.reached:hover{border-color:#ef00105c;box-shadow:0 18px 40px #0008,0 0 0 1px #ef001040}
+/* ---------- Inside the app: rich tiles in two columns either side of the road, over a night-meet photo ---------- */
+.road-journey .experience{height:auto!important;min-height:0;padding:110px 6% 120px;overflow:clip;background:linear-gradient(180deg,#000 0,rgba(0,0,0,.74) 16%,rgba(0,0,0,.8) 84%,#000 100%),url('mobile-meet-v1.webp') center/cover no-repeat #000!important}
+.road-journey .experience>.m-what,.road-journey .experience>.m-what[hidden]{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);row-gap:20px;position:relative;z-index:2}
+.m-what-head{grid-column:1;grid-row:1;align-self:end;margin-bottom:10px}
+.m-what-head h2{margin:0 0 14px}
+.m-what-sub[hidden],.m-what-sub{display:block;margin:0;max-width:28em;font-size:18px;line-height:1.55;color:var(--d-body)}
+.m-what .m-tiles{display:contents}
+.m-what .app-tile{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start;min-width:0;padding:22px 24px 24px;border:1px solid var(--d-line);border-radius:22px;background:rgba(14,15,18,.86);box-shadow:0 18px 40px #0007;transition:transform .2s,border-color .2s,box-shadow .2s}
+.m-what .app-tile:hover{transform:translateY(-3px);border-color:#ef00105c;box-shadow:0 22px 46px #0009}
+.m-what .app-tile:nth-child(odd){grid-column:1}.m-what .app-tile:nth-child(even){grid-column:3}
+.m-what .app-tile:nth-child(1),.m-what .app-tile:nth-child(2){grid-row:2}.m-what .app-tile:nth-child(3),.m-what .app-tile:nth-child(4){grid-row:3}.m-what .app-tile:nth-child(5),.m-what .app-tile:nth-child(6){grid-row:4}
+.m-what .app-tile>img{grid-row:1/4;width:auto;height:112px;margin:-6px 0 0 -6px;filter:drop-shadow(0 10px 18px #000b)}
+.m-what .app-tile h3{grid-column:2;margin:4px 0 8px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:30px;line-height:1;color:#fff}
+.m-what .app-tile .app-short{display:none}
+.m-what .app-tile .app-desc[hidden],.m-what .app-tile .app-desc{grid-column:2;display:block;margin:0 0 12px;font-size:15.5px;line-height:1.55;color:var(--d-body)}
+.m-what .app-tile .app-bullets[hidden],.m-what .app-tile .app-bullets{grid-column:2;display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.m-what .app-bullets li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.45;color:#a9abb2}
+.m-what .app-bullets li:before{content:'';position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--d-red)}
 
 /* ---------- Map ---------- */
 .road-journey .discovery .cn-copy{display:none}
@@ -202,8 +212,10 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 
 /* ---------- Tablet ---------- */
 @media (max-width:1050px){
- .road-journey .experience .feature{display:block}
- .d-titi{float:left;height:72px;margin:-6px 10px 4px -6px}
+ .m-what .app-tile{grid-template-columns:minmax(0,1fr);grid-template-rows:none;align-content:start;padding:18px}
+ .m-what .app-tile>img{grid-row:auto;height:84px;margin:-4px 0 10px -4px}
+ .m-what .app-tile h3,.m-what .app-tile .app-desc,.m-what .app-tile .app-desc[hidden],.m-what .app-tile .app-bullets,.m-what .app-tile .app-bullets[hidden]{grid-column:1}
+ .m-what .app-tile h3{font-size:26px}
  .m-how-step img{height:200px}
  .partner-directory .partner-brands h4{font-size:15px}
 }
