@@ -64,6 +64,9 @@ if(isPhone()&&!reduced.matches&&'IntersectionObserver' in window){
 const progress=document.createElement('div');progress.className='m-progress';progress.hidden=true;progress.setAttribute('aria-hidden','true');progress.innerHTML='<span class="m-progress-road"><span class="m-progress-fill"></span></span><span class="m-progress-car"></span>';document.body.append(progress);
 const sticky=document.querySelector('.m-sticky-cta'),floatTop=document.querySelector('.m-top-float'),heroCta=document.querySelector('.hero .actions .primary'),closing=document.querySelector('.final-invite'),footerTop=document.querySelector('.tt-footer-bottom a[href="#regions"]');
 document.querySelectorAll('.m-top').forEach(button=>button.addEventListener('click',()=>{window.scrollTo({top:0,behavior:smooth()});if(location.hash)history.replaceState(null,'',location.pathname+location.search+'#regions')}));
+/* A red ring around each back-to-top button fills as the page scrolls. */
+document.querySelectorAll('.m-top').forEach(button=>button.insertAdjacentHTML('afterbegin','<svg class="m-top-ring" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><circle class="m-top-track" cx="26" cy="26" r="24.5"/><circle class="m-top-arc" cx="26" cy="26" r="24.5" pathLength="100"/></svg>'));
+const topArcs=[...document.querySelectorAll('.m-top-arc')];
 const avoid=[...document.querySelectorAll('.hero .actions .primary,.hero .m-hero-partner,.mobile-ending .primary,.mobile-ending .m-ending-partner,.mobile-ending .m-footnote,.tt-footer a')];
 let frameId=0;
 function setVisible(el,on){if(!el)return;el.classList.toggle('is-visible',on);el.toggleAttribute('inert',!on)}
@@ -71,6 +74,7 @@ function paint(){
  frameId=0;setHowMode();if(!isPhone())return;
  const page=document.scrollingElement||document.documentElement,max=Math.max(1,page.scrollHeight-innerHeight),p=Math.max(0,Math.min(1,scrollY/max));
  progress.style.setProperty('--m-progress',p.toFixed(4));
+ for(const arc of topArcs)arc.style.strokeDashoffset=(100-p*100).toFixed(2);
  const intro=document.documentElement.classList.contains('intro-running'),dialog=!!document.querySelector('dialog[open]');
  progress.classList.toggle('is-visible',!intro&&scrollY>40);
  const pastHero=heroCta?heroCta.getBoundingClientRect().bottom<0:scrollY>innerHeight,atEnd=closing?closing.getBoundingClientRect().top<innerHeight-60:false;

@@ -238,7 +238,12 @@ body{overflow-x:clip;background:var(--m-bg)}
 .m-sticky-cta[hidden],.m-sticky-cta{display:flex;align-items:center;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:45;padding:22px var(--m-gutter) max(12px,env(safe-area-inset-bottom));background:linear-gradient(180deg,#0000 0,#000000d9 42%);transform:translateY(110%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;pointer-events:none}
 .m-sticky-cta.is-visible{transform:none;visibility:visible;transition:transform .28s ease;pointer-events:auto}
 .m-sticky-cta .primary{flex:1;display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:52px;padding:12px 18px;border-radius:999px;font-size:14px;letter-spacing:.07em;box-shadow:0 10px 30px #ef001040}
-.m-top{display:grid;place-items:center;flex:none;width:52px;height:52px;padding:0;border:1px solid #ffffff38;border-radius:50%;background:#16171bf2;color:#fff;font-size:20px;font-weight:700;line-height:1;box-shadow:0 8px 22px #000a}
+.m-top{position:relative;display:grid;place-items:center;flex:none;width:52px;height:52px;padding:0;border:0;border-radius:50%;background:#16171bf2;color:#fff;font-size:20px;font-weight:700;line-height:1;box-shadow:0 8px 22px #000a}
+.m-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible;pointer-events:none}
+.m-top-track,.m-top-arc{fill:none;stroke-width:2.5}
+.m-top-track{stroke:#ffffff26}
+.m-top-arc{stroke:#ff2442;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 3px #ff2442) drop-shadow(0 0 7px #ff244299);transition:stroke-dashoffset .12s linear}
+.m-top>span{position:relative}
 .m-top:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .m-top-float[hidden],.m-top-float{display:grid;position:fixed;right:var(--m-gutter);bottom:max(16px,calc(env(safe-area-inset-bottom) + 12px));z-index:44;width:48px;height:48px;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s,transform .25s,visibility 0s linear .25s}
 .m-top-float.is-visible{opacity:1;visibility:visible;transform:none;transition:opacity .25s,transform .25s}
@@ -293,7 +298,7 @@ select.has-choice-chips{display:none!important}
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
- .m-sticky-cta,.m-sticky-cta.is-visible,.m-progress,.m-top-float,.m-top-float.is-visible,.m-region-chips button{transition:none}
+ .m-sticky-cta,.m-sticky-cta.is-visible,.m-progress,.m-top-float,.m-top-float.is-visible,.m-region-chips button,.m-top-arc{transition:none}
  .m-reveal{opacity:1;transform:none;transition:none}
 }
 }
