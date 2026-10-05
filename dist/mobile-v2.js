@@ -19,7 +19,7 @@ if(hero){new MutationObserver(syncChips).observe(hero,{attributes:true,attribute
 const how=document.querySelector('.m-how'),howSteps=[...document.querySelectorAll('.m-how-step')],howButtons=[...document.querySelectorAll('.m-how-progress button')],howBg=document.querySelector('.m-how-bg');
 let howLive=false,howIndex=-1;
 function setHowMode(){
- const live=!!how&&isPhone()&&!reduced.matches;
+ const live=!!how&&!reduced.matches;
  if(live===howLive)return;howLive=live;howIndex=-1;how?.classList.toggle('is-live',live);
  if(!live){howSteps.forEach(step=>step.classList.remove('is-active','is-past'));if(howBg)howBg.style.transform=''}
 }
@@ -71,7 +71,7 @@ const avoid=[...document.querySelectorAll('.hero .actions .primary,.hero .m-hero
 let frameId=0;
 function setVisible(el,on){if(!el)return;el.classList.toggle('is-visible',on);el.toggleAttribute('inert',!on)}
 function paint(){
- frameId=0;setHowMode();if(!isPhone())return;
+ frameId=0;setHowMode();paintHow();if(!isPhone())return;
  const page=document.scrollingElement||document.documentElement,max=Math.max(1,page.scrollHeight-innerHeight),p=Math.max(0,Math.min(1,scrollY/max));
  progress.style.setProperty('--m-progress',p.toFixed(4));
  for(const arc of topArcs)arc.style.strokeDashoffset=(100-p*100).toFixed(2);
@@ -84,7 +84,6 @@ function paint(){
  /* Never park the floating button over a button or link. */
  if(floatOn&&floatTop){const zone={left:innerWidth-76,top:innerHeight-84};floatOn=!avoid.some(el=>{const r=el.getBoundingClientRect();return r.width&&r.right>zone.left&&r.bottom>zone.top&&r.top<innerHeight})}
  setVisible(floatTop,floatOn);
- paintHow();
 }
 function schedule(){if(!frameId)frameId=requestAnimationFrame(paint)}
 addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);phone.addEventListener('change',schedule);reduced.addEventListener('change',schedule);

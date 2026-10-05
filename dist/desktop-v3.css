@@ -1,0 +1,220 @@
+/* Desktop and tablet (761px and wider): the phone page's content, laid out for wide screens around
+   the continuous centre road (content | road lane | content). Loaded with media="(min-width:761px)";
+   phones use mobile-v2.css. */
+@media (min-width:761px){
+:root{--d-red:#ef0010;--d-red-text:#ff3a50;--d-line:rgba(255,255,255,.09);--d-glass:rgba(255,255,255,.045);--d-body:#c8c9ce;--d-muted:#9a9ca3;--d-gap:var(--road-gap,136px)}
+.road-journey{--d-gap:var(--road-gap,136px)}
+
+/* ---------- Header ---------- */
+header .logo{display:flex;align-items:center;min-height:56px}
+header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filter:drop-shadow(0 2px 10px #000a)}
+#nav>a[href="#regions"]{display:none!important}
+#nav .m-nav[hidden]{display:inline-flex}
+#nav a:not(.navcta){display:inline-flex;align-items:center;min-height:44px;transition:color .2s}
+#nav a:not(.navcta):hover{color:#fff}
+#nav .navcta{transition:background .2s,border-color .2s}
+#nav .navcta:hover{background:var(--d-red);border-color:var(--d-red)}
+
+/* ---------- Hero: the value proposition is the headline; region chips support it ---------- */
+.hero .region-slot,.hero .brandline,.hero .product-line,.hero .divider,.hero .lede,.hero .tagline,.hero .hero-vendor,.hero #title-region,.hero .launch-note,.hero .concept{display:none!important}
+.hero .shade{background:linear-gradient(180deg,#080a0ad6 0,#080a0a33 26%,#080a0a44 52%,#080a0ae6 90%,#080a0a)!important}
+.hero .copy{display:flex;flex-direction:column;align-items:center;padding-top:clamp(24px,4vh,52px)}
+.hero .m-region-chips[hidden],.hero .m-region-chips{order:0;display:grid;grid-template-columns:repeat(3,auto);gap:4px;padding:4px;border:1px solid #ffffff2e;border-radius:14px;background:#00000059;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.m-region-chips button{min-height:44px;padding:0 22px;border:0;border-radius:10px;background:transparent;color:#e2e2e5;font-size:14px;font-weight:600;transition:background .2s,color .2s}
+.m-region-chips button:hover{background:#ffffff1a;color:#fff}
+.m-region-chips button[aria-pressed="true"]{background:#fff;color:#0a0a0a}
+.m-region-chips button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.hero .status{order:1;margin:14px 0 0}
+.hero .m-hero-kicker,.hero .m-hero-kicker[hidden]{display:none}
+.m-hero-kicker span{padding:6px 11px;border-radius:5px;background:var(--d-red);color:#fff;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 6px 20px #ef001055}
+.hero h1{order:3;margin:clamp(26px,5vh,52px) 0 18px;font-size:clamp(66px,9.2vw,148px);line-height:.88;text-shadow:0 6px 30px #0009}
+.hero .m-hero-title[hidden],.hero .m-hero-title{display:block}
+.m-hero-title em{font-style:inherit;color:var(--d-red)}
+.hero .m-hero-line[hidden],.hero .m-hero-line{order:4;display:block;margin:0;max-width:36em;font-size:18px;line-height:1.5;color:#ececee;text-shadow:0 1px 10px #000}
+.hero .actions{order:5;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px}
+.hero .actions .primary{display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 30px;transition:transform .2s,box-shadow .2s,background .2s}
+.hero .actions .primary span{margin:0}
+.hero .m-hero-partner[hidden],.hero .m-hero-partner{display:inline-flex;align-items:center;min-height:56px;padding:0 28px;border:1px solid #ffffff6b;border-radius:40px;background:#0000004d;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:14px;font-weight:700;letter-spacing:.05em;color:#fff;transition:border-color .2s,background .2s}
+.hero .m-hero-partner:hover{border-color:#fff;background:#ffffff1a}
+.hero .hero-bottom{justify-content:center}
+
+/* ---------- Shared ---------- */
+.primary{transition:transform .2s,box-shadow .2s,background .2s}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px #ef001059;background:#ff1626}
+.road-journey .kicker{display:none!important}
+.road-journey h2 em{font-style:inherit;color:var(--d-red)}
+.m-line{margin:0;font-size:18px;line-height:1.55;color:var(--d-body);max-width:28em}
+.m-tag{display:inline-flex;align-items:center;gap:6px;width:max-content;padding:6px 12px;border:1px solid #ef00105c;border-radius:999px;background:#ef00101f;color:#ff7383;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.m-tag:before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.m-reveal{opacity:0;transform:translateY(18px);transition:opacity .3s ease,transform .3s ease;transition-delay:var(--m-delay,0ms)}
+.m-reveal.m-in{opacity:1;transform:none}
+
+/* ---------- How it works: pinned while native scroll picks the step; the road runs between TiTi and the text ---------- */
+.road-journey>section.m-how,.m-how[hidden]{display:block;padding:0;background:transparent}
+.m-how .m-how-bg{display:none}
+.m-how-stage{position:relative;padding:100px 6% 70px}
+.m-how h2{margin:0}
+.m-how-progress{display:none}
+.m-how-steps{display:grid;gap:30px;margin:40px 0 0;padding:0;list-style:none}
+.m-how-step{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;align-items:center}
+.m-how-step img{grid-column:1;grid-row:1/-1;justify-self:center;width:auto;height:240px;filter:drop-shadow(0 24px 40px #000c) drop-shadow(0 0 60px #ef001044)}
+.m-how-step>:not(img){grid-column:3;justify-self:start}
+.m-how-num{grid-row:2;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:.06em;color:#ff4a5d}
+.m-how-step h3{grid-row:3;margin:4px 0 0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:clamp(48px,5.6vw,92px);line-height:.92;color:#fff}
+.m-how-step p{grid-row:4;margin:14px 0 0;max-width:20em;font-size:clamp(17px,1.4vw,21px);line-height:1.5;color:var(--d-body)}
+.m-how-step .m-tag{grid-row:5;margin-top:18px}
+@media (prefers-reduced-motion:no-preference){
+ .m-how.is-live{height:300vh;height:300svh}
+ .m-how.is-live .m-how-stage{position:sticky;top:0;display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:100vh;height:100svh;padding:clamp(70px,11vh,120px) 6% clamp(40px,7vh,80px)}
+ .m-how.is-live .m-how-head{grid-column:3;grid-row:1}
+ .m-how.is-live .m-how-progress{display:flex;gap:8px;max-width:420px;margin:14px 0 0}
+ .m-how-progress button{flex:1;min-height:44px;padding:0;border:0;background:none;display:flex;align-items:center;cursor:pointer}
+ .m-how-progress button span{position:relative;display:block;width:100%;height:4px;border-radius:2px;background:#ffffff2b;overflow:hidden;transition:height .2s}
+ .m-how-progress button:hover span{height:6px}
+ .m-how-progress button span:after{content:'';position:absolute;inset:0;background:var(--d-red);transform-origin:0 50%;transform:scaleX(var(--fill,0))}
+ .m-how-progress button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:4px}
+ .m-how.is-live .m-how-steps{grid-column:1/-1;grid-row:2;position:relative;display:block;margin:0;min-height:0}
+ .m-how.is-live .m-how-step{position:absolute;inset:0;opacity:0;transform:translateY(30px);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+ .m-how.is-live .m-how-step.is-past{transform:translateY(-30px)}
+ .m-how.is-live .m-how-step.is-active{opacity:1;transform:none;pointer-events:auto}
+ .m-how.is-live .m-how-step img{height:min(56vh,440px);transition:transform .45s cubic-bezier(.2,.9,.25,1.15)}
+ .m-how.is-live .m-how-step:not(.is-active) img{transform:scale(.9) rotate(-4deg)}
+}
+
+/* ---------- TiTi cards: text left, fan right ---------- */
+.road-journey>section.m-cards,.m-cards[hidden]{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;align-items:start;padding:110px 6% 120px;text-align:left;background:linear-gradient(90deg,#000 0,#000 46%,rgba(0,0,0,.35) 72%,rgba(0,0,0,0) 100%),url('racing-black-red-v2.webp') center/cover no-repeat #000;overflow:hidden}
+.m-cards .m-sec-bg{display:none}
+.m-cards h2,.m-cards .m-line,.m-cards .m-tag,.m-cards .m-fan-hint{grid-column:1}
+.m-cards h2{grid-row:2;margin:0 0 18px}
+.m-cards .m-line{grid-row:3;margin:0 0 18px}
+.m-cards .m-tag{grid-row:4}
+.m-cards .m-fan-hint{grid-row:5;margin:22px 0 0;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--d-muted)}
+.m-fan{grid-column:3;grid-row:1/-1;position:relative;align-self:center;width:100%;height:clamp(240px,28vw,420px)}
+.m-fan-card{position:absolute;left:50%;bottom:6%;display:block;width:clamp(84px,10.4vw,158px);aspect-ratio:248/372;padding:0;border:0;border-radius:11px;background:none;transform-origin:50% 165%;transform:translateX(-50%) rotate(var(--r,0deg));z-index:var(--z,1);cursor:pointer;transition:scale .25s ease,filter .25s ease}
+.m-fan-card img{display:block;width:100%;height:auto;aspect-ratio:248/372;border-radius:11px;box-shadow:0 18px 34px #000b,0 0 0 1px #ffffff1f}
+.m-fan-card:nth-child(1){--r:-30deg;--z:1;--i:3}.m-fan-card:nth-child(2){--r:-20deg;--z:2;--i:2}.m-fan-card:nth-child(3){--r:-10deg;--z:3;--i:1}
+.m-fan-card:nth-child(4){--r:10deg;--z:3;--i:1}.m-fan-card:nth-child(5){--r:20deg;--z:2;--i:2}.m-fan-card:nth-child(6){--r:30deg;--z:1;--i:3}
+.m-fan-card:nth-child(7){--r:0deg;--z:5;--i:0;width:clamp(94px,11.6vw,176px)}
+.m-fan-card:nth-child(7) img{box-shadow:0 20px 40px #000c,0 0 0 1px #ffd76a66,0 0 40px #ffcf4a33}
+.m-fan-card:hover{scale:1.07;z-index:9;filter:brightness(1.06)}
+.m-fan-card:focus-visible{outline:3px solid #fff;outline-offset:4px;z-index:9}
+.m-fan-card.is-lifted{visibility:hidden}
+@media (prefers-reduced-motion:no-preference){
+ .m-fan-card{animation:d-float 5.5s ease-in-out infinite;animation-delay:calc(var(--z) * -.7s);transition:transform .7s cubic-bezier(.2,.85,.25,1.08),scale .25s ease,filter .25s ease;transition-delay:calc(var(--i,0) * 70ms),0s,0s}
+ .m-fan.is-stacked .m-fan-card{transform:translateX(-50%) rotate(0deg) translateY(12px)}
+ @keyframes d-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
+}
+
+/* ---------- Features along the winding road: TiTi on each card, one line each ---------- */
+.road-journey .experience .section-top .intro p{margin:0 0 18px}
+.road-journey .experience .feature{grid-template-columns:90px 1fr;transition:opacity .55s ease,transform .65s ease,visibility .55s,border-color .2s,box-shadow .2s}
+.road-journey .experience .feature .feature-icon,.road-journey .experience .feature p.feature-cn,.road-journey .experience .feature-footnote{display:none}
+.road-journey .experience .feature-top{align-self:center}
+.d-titi{display:block;width:auto;height:96px;margin:-8px 0 -8px -8px;filter:drop-shadow(0 8px 14px #000a)}
+.road-journey .experience .feature h3{margin:0 0 6px}
+.road-journey .experience .feature.reached:hover{border-color:#ef00105c;box-shadow:0 18px 40px #0008,0 0 0 1px #ef001040}
+
+/* ---------- Map ---------- */
+.road-journey .discovery .cn-copy{display:none}
+.road-journey .discovery .map-option{transition:border-color .2s,background .2s,transform .2s}
+.road-journey .discovery .map-option:not(.selected):hover{border-color:#ef00105c;background:#1a0b0e;transform:translateX(3px)}
+
+/* ---------- TTPoints chapter: covered by How it works ---------- */
+.road-journey .reward-journey{display:none!important}
+
+/* ---------- Partners: title and "Your brand here" left, uniform partner grid right ---------- */
+#vendors .vendor-heading,#vendors .vendor-categories,#vendors .vendor-pitch,#vendors .m-sec-bg,.partner-carousel-nav,.partner-page-status,.partner-autoplay,#partner-join,.partner-directory>.kicker,.partner-directory .directory-intro,.partner-directory>.partner-caption,.partner-brands article>span,.partner-brands .partner-address,.partner-brands article>.partner-join-link{display:none!important}
+.road-journey #vendors .vendor-panel{display:block;margin:0;background:none;border:0}
+.road-journey #vendors .partner-carousel{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
+.road-journey #vendors .partner-track{display:block!important;height:auto!important;overflow:visible}
+.road-journey #vendors .partner-directory{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) calc(var(--d-gap) - 28px) minmax(0,1fr) minmax(0,1fr);gap:14px;padding:0!important;border:0;background:none;box-shadow:none;align-items:stretch}
+.partner-directory h3{grid-column:1/3;grid-row:1;align-self:center;margin:0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:clamp(48px,5.3vw,80px);line-height:.94;color:#fff}
+.partner-directory .partner-brands{display:contents}
+.partner-directory .partner-brands article{position:relative;display:flex;flex-direction:column;align-items:stretch;min-width:0;padding:12px 12px 18px;border:1px solid var(--d-line);border-radius:18px;background:linear-gradient(165deg,#17181c,#0c0d0f);text-align:center;transition:transform .2s,border-color .2s,box-shadow .2s}
+.partner-directory .partner-brands article:nth-child(1){grid-column:4;grid-row:1}.partner-directory .partner-brands article:nth-child(2){grid-column:5;grid-row:1}
+.partner-directory .partner-brands article:nth-child(3){grid-column:4;grid-row:2}.partner-directory .partner-brands article:nth-child(4){grid-column:5;grid-row:2}
+.partner-directory .partner-brands article:hover{transform:translateY(-3px);border-color:#ef00105c;box-shadow:0 18px 40px #0009}
+.partner-directory .partner-brands article .partner-logo,.partner-directory .partner-brands article .partner-logo.autolab-logo,.partner-directory .partner-brands article .partner-logo.soundstream-logo{display:flex;align-items:center;justify-content:center;height:clamp(76px,7vw,104px);width:auto;padding:10px clamp(10px,1.4vw,22px);border:1px solid #ffffff12;border-radius:12px;background:radial-gradient(120% 100% at 50% 0,#24252b,#141518)}
+.partner-directory .partner-brands article .partner-logo img{position:static;display:block;width:100%;height:100%;max-width:none;object-fit:contain;transform:none}
+.partner-directory .partner-brands article .partner-logo-window{position:static;display:block;width:100%;height:100%;aspect-ratio:auto;overflow:visible}
+.partner-directory .partner-brands h4{margin:14px 0 4px;font-size:17px;line-height:1.25;color:#fff}
+.partner-directory .partner-brands p{margin:0;font-size:11px;line-height:1.45;letter-spacing:.07em;text-transform:uppercase;color:#a9abb2}
+.m-card-link[hidden],.m-card-link{position:absolute;inset:0;z-index:3;display:block;border-radius:18px}
+.m-card-link:after{content:'\2197';position:absolute;top:6px;right:6px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#000000a6;border:1px solid #ffffff2e;color:#fff;font-size:14px;line-height:1;transition:background .2s}
+.m-card-link:hover:after{background:var(--d-red)}
+.m-card-link:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.partner-directory .partner-brands article:last-child{grid-column:1/3;grid-row:2;display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:auto auto 1fr;align-items:center;gap:4px 16px;padding:20px;text-align:left;border:1px solid #ef00103d;background:radial-gradient(110% 120% at 100% 0,#3b0710 0,transparent 60%),#0e0e11}
+.partner-directory .partner-brands article:last-child .partner-logo{grid-row:1/3;width:72px;height:78px;padding:0;border:0;background:none}
+.partner-directory .partner-brands article:last-child h4{margin:0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:30px;line-height:1}
+.partner-directory .partner-brands article:last-child p{text-transform:none;letter-spacing:0;font-size:15px;color:var(--d-body)}
+.partner-directory .partner-brands .m-brand-cta[hidden],.partner-directory .partner-brands .m-brand-cta{grid-column:1/-1;align-self:end;display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;margin:16px 0 0;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.m-partner-note[hidden],.m-partner-note{grid-column:4/6;grid-row:3;display:block;margin:4px 0 0;font-size:12.5px;line-height:1.5;color:var(--d-muted)}
+
+/* ---------- From the scene: heading left, event cards right ---------- */
+.road-journey>section.mobile-events,.mobile-events[hidden]{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:auto auto 1fr;align-items:start;padding:100px 6%;background:#000}
+.mobile-events>.kicker,.mobile-events .m-sec-bg{display:none!important}
+.mobile-events h2{grid-column:1;grid-row:1;margin:0 0 16px}
+.mobile-events .mobile-events-note{grid-column:1;grid-row:2;margin:0;font-size:18px;line-height:1.55;color:var(--d-body);max-width:24em}
+.mobile-events .mobile-map-cta{grid-column:1;grid-row:3;align-self:start;display:inline-flex;align-items:center;width:max-content;min-height:50px;margin-top:24px;padding:0 24px;border:1px solid #ffffff5c;border-radius:999px;font-size:14px;font-weight:600;color:#fff;transition:border-color .2s,background .2s}
+.mobile-events .mobile-map-cta:hover{border-color:#fff;background:#ffffff14}
+.m-events-track{grid-column:3;grid-row:1/-1;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.m-events-track li{min-width:0}
+.mobile-events .mobile-event{display:flex;flex-direction:column;height:100%;border:1px solid var(--d-line);border-radius:18px;overflow:hidden;background:#0e0f12;color:#fff;text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s}
+.mobile-events .mobile-event:hover{transform:translateY(-4px);border-color:#ef00105c;box-shadow:0 20px 40px #0009}
+.mobile-events .mobile-event img{display:block;width:100%;height:auto;aspect-ratio:16/12;object-fit:contain;background:#000}
+.mobile-events .mobile-event.is-spot img{background:#fff;padding:14px}
+.mobile-events .mobile-event div{display:flex;flex-direction:column;gap:4px;padding:14px}
+.mobile-events .mobile-event small{font-size:11px;line-height:1.45;letter-spacing:.08em;font-weight:700;color:#ff5b6d}
+.mobile-events .mobile-event strong{font-size:17px;line-height:1.25}
+.mobile-events .mobile-event span{font-size:13.5px;color:var(--d-muted)}
+.mobile-events .mobile-event:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* ---------- FAQ ---------- */
+.road-journey .faq>div:first-child{position:relative}
+.m-faq-titi[hidden],.m-faq-titi{display:block;width:auto;height:150px;margin-top:28px;filter:drop-shadow(0 12px 20px #000b)}
+.road-journey .faq-list details,.road-journey .faq-list details:first-child{margin:0 0 10px;padding:0;border:1px solid var(--d-line);border-radius:16px;background:var(--d-glass);transition:border-color .2s}
+.road-journey .faq-list details:hover{border-color:#ffffff26}
+.road-journey .faq-list summary{position:relative;display:flex;align-items:center;min-height:62px;padding:16px 60px 16px 20px;list-style:none;font-size:17px;line-height:1.35;font-weight:600;color:#fff}
+.road-journey .faq-list summary::-webkit-details-marker{display:none}
+.road-journey .faq-list summary:after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff12;color:#ff3a50;font-size:20px;line-height:1}
+.road-journey .faq-list details[open] summary:after{content:'\2212';background:var(--d-red);color:#fff}
+.road-journey .faq-list p{margin:0;padding:0 20px 18px;font-size:15.5px;line-height:1.65;color:var(--d-body)}
+
+/* ---------- Closing call to action: TiTi left, invitation right, one honesty footnote ---------- */
+.road-journey .final-invite{display:block!important;padding:80px 6% 120px}
+.road-journey .final-invite>*:not(.mobile-ending){display:none!important}
+.road-journey .final-invite .mobile-ending[hidden],.road-journey .final-invite .mobile-ending{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;align-items:center;min-height:min(70vh,560px);margin:0;padding:0;background:none;text-align:left}
+.m-ending-bg{grid-column:1;grid-row:1/-1;align-self:stretch;width:100%;height:100%;min-height:420px;object-fit:cover;border-radius:24px;opacity:.9;-webkit-mask-image:radial-gradient(120% 90% at 50% 40%,#000 55%,transparent);mask-image:radial-gradient(120% 90% at 50% 40%,#000 55%,transparent)}
+.mobile-ending .m-titi{grid-column:1;grid-row:1/-1;align-self:end;justify-self:center;width:auto;height:min(48vh,360px);margin:0 0 4%;filter:drop-shadow(0 26px 40px #000d) drop-shadow(0 0 60px #ef001040)}
+.road-journey .mobile-ending h2{grid-column:3;grid-row:2;margin:0 0 26px}
+.road-journey .mobile-ending .primary{grid-column:3;grid-row:3;justify-self:start;display:inline-flex;align-items:center;min-height:56px;padding:0 32px}
+.road-journey .mobile-ending .m-ending-partner{grid-column:3;grid-row:4;justify-self:start;display:inline-flex;align-items:center;min-height:52px;margin-top:12px;padding:0 28px;border:1px solid #ffffff5c;border-radius:999px;background:transparent;color:#fff;font-size:13px;font-weight:700;letter-spacing:.07em;transition:border-color .2s,background .2s}
+.road-journey .mobile-ending .m-ending-partner:hover{border-color:#fff;background:#ffffff14}
+.road-journey .mobile-ending .m-footnote{grid-column:3;grid-row:5;margin:26px 0 0;max-width:30em;font-size:13px;line-height:1.55;color:var(--d-muted)}
+
+/* ---------- Footer ---------- */
+.tt-footer .footer-brand img{width:auto;height:66px;border-radius:0;object-fit:contain}
+.tt-footer .footer-brand strong,.tt-footer-intro>small,.tt-footer-join{display:none!important}
+.tt-footer{grid-template-columns:1.2fr 1fr}
+
+/* ---------- Tablet ---------- */
+@media (max-width:1050px){
+ .road-journey .experience .feature{display:block}
+ .d-titi{float:left;height:72px;margin:-6px 10px 4px -6px}
+ .m-how-step img{height:200px}
+ .partner-directory .partner-brands h4{font-size:15px}
+}
+@media (max-width:900px){
+ .hero h1{font-size:clamp(60px,10vw,100px)}
+ .m-how.is-live .m-how-step img{height:min(44vh,320px)}
+ .partner-directory .partner-brands article:last-child{grid-template-columns:56px minmax(0,1fr)}
+ .partner-directory .partner-brands article:last-child .partner-logo{width:56px;height:60px}
+ .partner-directory .partner-brands article:last-child h4{font-size:24px}
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+ .m-reveal{opacity:1;transform:none;transition:none}
+ .primary:hover,.partner-directory .partner-brands article:hover,.mobile-events .mobile-event:hover{transform:none}
+}
+}
