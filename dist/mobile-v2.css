@@ -62,7 +62,7 @@ body{overflow-x:clip;background:var(--m-bg)}
 .road-journey>section{position:relative;isolation:isolate;display:block;height:auto;min-height:0;margin:0;padding:60px var(--m-gutter)!important;border:0!important;background:var(--m-bg)!important;background-image:none!important;overflow:hidden;text-align:left}
 .road-journey>section>*{min-width:0}
 .road-journey>section>img.m-sec-bg,.road-journey>section>img.m-sec-bg[hidden]{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover;opacity:.7;pointer-events:none}
-.road-journey>section.m-cards:after,.road-journey>#vendors:after,.road-journey>section.mobile-events:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,var(--m-bg) 0,#05050699 22%,#05050680 70%,var(--m-bg) 100%)}
+.road-journey>#vendors:after,.road-journey>section.mobile-events:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,var(--m-bg) 0,#05050699 22%,#05050680 70%,var(--m-bg) 100%)}
 
 /* ---------- How it works: pinned steps driven by native scroll ---------- */
 .road-journey>section.m-how,.m-how[hidden]{display:block;padding:0!important;overflow:visible;background:var(--m-bg)!important}
@@ -99,10 +99,14 @@ body{overflow-x:clip;background:var(--m-bg)}
 }
 
 /* ---------- TiTi cards ---------- */
-.road-journey>section.m-cards,.m-cards[hidden]{display:block;text-align:center;padding-bottom:40px!important}
-.m-cards h2,.m-cards .m-line,.m-cards .m-tag,.m-fan{position:relative;z-index:2}
+.road-journey>section.m-cards,.m-cards[hidden]{display:block;padding:0!important;overflow:visible;text-align:center}
+.cards-stage{position:relative;isolation:isolate;overflow:hidden;padding:60px var(--m-gutter) 44px}
+.cards-stage>img.m-sec-bg{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover;opacity:.7;pointer-events:none}
+.cards-stage:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,var(--m-bg) 0,#05050699 22%,#05050680 70%,var(--m-bg) 100%)}
+.cards-stage>*:not(.m-sec-bg){position:relative;z-index:2}
 .m-cards .m-line{margin:0 auto 12px;max-width:24em}
-.m-fan{height:clamp(220px,62vw,270px);margin:30px auto 0;max-width:380px}
+.cards-fanbox{height:clamp(220px,62vw,270px);margin:30px auto 0;max-width:380px}
+.m-fan{position:relative;height:100%}
 .m-fan-card{position:absolute;left:50%;bottom:0;display:block;width:clamp(92px,27vw,112px);height:auto;aspect-ratio:248/372;padding:0;border:0;border-radius:9px;background:none;transform-origin:50% 165%;transform:translateX(-50%) rotate(var(--r,0deg));z-index:var(--z,1);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .m-fan-card img{display:block;width:100%;height:auto;aspect-ratio:248/372;border-radius:9px;box-shadow:0 16px 30px #000b,0 0 0 1px #ffffff1f}
 .m-fan-card:nth-child(1){--r:-30deg;--z:1;--i:3}.m-fan-card:nth-child(2){--r:-20deg;--z:2;--i:2}.m-fan-card:nth-child(3){--r:-10deg;--z:3;--i:1}
@@ -111,12 +115,27 @@ body{overflow-x:clip;background:var(--m-bg)}
 .m-fan-card:nth-child(7) img{box-shadow:0 18px 36px #000c,0 0 0 1px #ffd76a66,0 0 34px #ffcf4a33}
 .m-fan-card:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .m-fan-card.is-lifted{visibility:hidden}
-.road-journey>section.m-cards>.m-fan-hint{position:absolute;z-index:2;left:0;right:0;bottom:12px;margin:0;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--m-muted)}
+.cards-stage>.m-fan-hint{margin:16px 0 0;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--m-muted)}
 @media (prefers-reduced-motion:no-preference){
  .m-fan-card{animation:m-float 5.5s ease-in-out infinite;animation-delay:calc(var(--z) * -.7s);transition:transform .7s cubic-bezier(.2,.85,.25,1.08);transition-delay:calc(var(--i,0) * 70ms)}
  .m-fan.is-stacked .m-fan-card{transform:translateX(-50%) rotate(0deg) translateY(10px)}
  @keyframes m-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
 }
+
+/* Pinned sequence (cards-sequence.js): name + rarity only on phones. */
+.m-cards.is-seq{height:400vh;height:400svh}
+.m-cards.is-seq .cards-stage{display:flex;flex-direction:column;align-items:center;height:100vh;height:100svh;padding:max(26px,4svh) var(--m-gutter) 100px}
+.m-cards.is-seq .cards-copy{flex:none}
+.m-cards.is-seq .cards-copy h2{margin-bottom:8px}
+.m-cards.is-seq .cards-copy .m-line{margin-bottom:10px}
+.m-cards.is-seq .cards-fanbox{flex:1;min-height:0;width:100%;max-width:380px;height:auto;margin:6px auto 0;--seq-w:clamp(100px,29vw,130px)}
+.m-cards.is-seq .cards-detail{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px}
+.m-cards.is-seq .cards-detail .cd-count,.m-cards.is-seq .cards-detail .cd-line{display:none}
+.m-cards.is-seq .cards-detail .cd-name{margin:0;font-size:24px}
+.m-cards.is-seq .cards-detail[data-state="done"] .cd-name{font-size:19px}
+.m-cards.is-seq .cards-progress{flex:none;width:100%;max-width:380px}
+.m-cards.is-seq .cards-stage>.m-fan-hint{margin:2px 0 0}
+@media (max-height:700px){.m-cards.is-seq .cards-copy .m-line{display:none}}
 
 /* ---------- What you can do (TiTi tiles) ---------- */
 .road-journey .experience{height:auto!important;padding:60px var(--m-gutter)!important}

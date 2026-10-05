@@ -54,3 +54,43 @@ html.tc-open{overflow:hidden}
  .tc-viewer.is-flipped .tc-front{opacity:0}
  .tc-face{transition:opacity .2s ease}
 }
+
+/* Pinned TiTi card sequence (cards-sequence.js). Layouts per width live in mobile-v2.css and desktop-v3.css. */
+.cards-detail,.cards-progress{display:none}
+.m-cards.is-seq .cards-stage{position:sticky;top:0;overflow:hidden}
+.m-cards.is-seq .cards-fanbox{position:relative}
+.m-cards.is-seq .m-fan{position:absolute;inset:0;width:auto;height:auto;margin:0;max-width:none;perspective:1200px}
+.m-cards.is-seq .m-fan-card,.m-cards.is-seq .m-fan-card:nth-child(7){left:calc(50% - var(--seq-w,110px)/2);top:calc(50% - var(--seq-w,110px)*.75);bottom:auto;width:var(--seq-w,110px);transform-origin:50% 50%;animation:none;transition:scale .25s ease,filter .25s ease;will-change:transform,opacity;overflow:hidden;border-radius:11px;box-shadow:0 18px 34px #000b,0 0 0 1px #ffffff1f}
+.m-cards.is-seq .m-fan-card img,.m-cards.is-seq .m-fan-card:nth-child(7) img{border-radius:0;box-shadow:none}
+.m-cards.is-seq .m-fan-card:nth-child(7){box-shadow:0 20px 40px #000c,0 0 0 1px #ffd76a66,0 0 40px #ffcf4a33}
+.m-cards.is-seq .m-fan-card:after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,236,170,.65) 47%,rgba(255,255,255,.25) 53%,transparent 70%);transform:translateX(-130%);opacity:0;pointer-events:none}
+.m-cards.is-seq .cards-stage.is-secret .m-fan-card:nth-child(7):after{opacity:1;animation:cards-shine 1.5s ease-in-out .1s 2}
+@keyframes cards-shine{to{transform:translateX(130%)}}
+.cards-glow{position:absolute;left:50%;top:50%;width:min(125%,820px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;z-index:0}
+.cards-glow span{position:absolute;inset:0;background:radial-gradient(closest-side,var(--glow),transparent 74%);opacity:0;will-change:opacity}
+.cards-glow span:last-child{inset:-10%;background:radial-gradient(closest-side,#f5b301,rgba(245,179,1,.35) 45%,transparent 74%)}
+.m-cards:not(.is-seq) .cards-glow{display:none}
+.m-cards.is-seq .cards-detail{display:block}
+.cards-detail[data-state="intro"]{visibility:hidden}
+.cards-detail.swap-a{animation:cd-in-a .32s ease both}.cards-detail.swap-b{animation:cd-in-b .32s ease both}
+@keyframes cd-in-a{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes cd-in-b{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.cd-count{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.14em;color:#c9cace}
+.cd-count span{color:#fff}
+.cd-name{margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;line-height:.95;letter-spacing:-.01em;color:#fff}
+.cards-detail[data-state="done"] .cd-rarity{display:none}
+.cd-line{margin:12px 0 0;line-height:1.5;color:#d6d7db}
+.m-cards.is-seq .cards-progress{display:flex;gap:6px}
+.cards-progress button{flex:1;min-width:0;min-height:44px;padding:0;border:0;background:none;display:flex;flex-direction:column;justify-content:center;gap:6px;color:#8d8f96;font:700 11px 'Hanken Grotesk',sans-serif;letter-spacing:.08em;cursor:pointer;transition:color .2s}
+.cards-progress button:hover,.cards-progress button[aria-current]{color:#fff}
+.cards-progress button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:4px}
+.cp-bar{position:relative;display:block;height:4px;border-radius:2px;background:#ffffff26;overflow:hidden}
+.cp-bar:after{content:'';position:absolute;inset:0;background:#ef0010;transform-origin:0 50%;transform:scaleX(var(--fill,0))}
+.cards-progress button:last-child .cp-bar:after{background:#f5b301}
+.cards-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:20px 0 0;padding:0;list-style:none;text-align:left}
+.cards-list li{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:1.35;color:#d6d7db}
+.cards-list li>span{font-weight:700;color:#ff5b6d}
+.cards-list b{margin-left:auto;padding:2px 8px;border-radius:999px;background:#c9cbd1;color:#1b1b1f;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.cards-list b[data-rarity="rare"]{background:linear-gradient(135deg,#f4f6fa,#a9b0bc 50%,#eef1f6)}
+.cards-list b[data-rarity="secret"]{background:linear-gradient(135deg,#ffe49a,#f5b301 45%,#ffd45c)}
+@media (prefers-reduced-motion:reduce){.cards-list[hidden]{display:grid}}

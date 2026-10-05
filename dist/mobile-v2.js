@@ -54,7 +54,7 @@ document.querySelectorAll('.discovery .map-option[data-map]').forEach(el=>el.add
 /* Light scroll reveal (fade + short slide, 300 ms), only when motion is allowed. */
 if(isPhone()&&!reduced.matches&&'IntersectionObserver' in window){
  const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('m-in');io.unobserve(entry.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.01});
- document.querySelectorAll('.m-cards h2,.m-cards .m-line,.m-cards .m-tag,.m-fan,.m-what h2,.m-tiles li,.m-sec-head,.m-map-card,.discovery .map-options,.partner-directory h3,.partner-brands article,.mobile-events h2,.m-events-track,.faq>div:first-child,.faq-list details,.mobile-ending>:not(.m-ending-bg)').forEach(el=>{
+ document.querySelectorAll('.m-what h2,.m-tiles li,.m-sec-head,.m-map-card,.discovery .map-options,.partner-directory h3,.partner-brands article,.mobile-events h2,.m-events-track,.faq>div:first-child,.faq-list details,.mobile-ending>:not(.m-ending-bg)').forEach(el=>{
   const siblings=[...el.parentElement.children].filter(c=>c.tagName===el.tagName);el.style.setProperty('--m-delay',Math.min(3,siblings.indexOf(el))*60+'ms');
   el.classList.add('m-reveal');io.observe(el);
  });

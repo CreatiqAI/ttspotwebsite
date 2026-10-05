@@ -11,6 +11,7 @@ const CARDS=[
  {name:'Helping on the Road',rarity:'Rare',line:'Safer drives. Brighter journeys.',color:'#3CB393'},
  {name:'Built for a Better Drive',rarity:'Secret',line:'Secret version 07. TT Spot × TypeOne. Stable drives, stronger journeys.',color:'#F5B301'}
 ];
+window.TTSPOT_CARDS=CARDS;
 const fan=document.querySelector('.m-fan'),dialog=document.querySelector('.tc-viewer');
 if(!fan||!dialog)return;
 const buttons=[...fan.querySelectorAll('.m-fan-card')];
@@ -32,11 +33,13 @@ function fill(i){
  setFlip(false,true);preload(i+1);preload(i-1);
 }
 function setFlip(on,instant){flipped=on;card.setAttribute('aria-pressed',String(on));card.setAttribute('aria-label',on?'Show the front of the card':'Flip to the back of the card');inner.classList.toggle('is-instant',!!instant);dialog.classList.toggle('is-flipped',on);if(instant)requestAnimationFrame(()=>inner.classList.remove('is-instant'))}
-function rotationOf(button){return parseFloat(getComputedStyle(button).getPropertyValue('--r'))||0}
+/* The scroll sequence (cards-sequence.js) reports each card's live rotation and scale. */
+function poseOf(button){const live=window.TTSpotCardPose?.(buttons.indexOf(button));return live||{r:parseFloat(getComputedStyle(button).getPropertyValue('--r'))||0,s:1}}
+function rotationOf(button){return poseOf(button).r}
 /* FLIP: start the big card exactly over the fan card, then let it settle at its own place. */
 function flyFrom(button,reverse){
  const from=button.getBoundingClientRect(),to=card.getBoundingClientRect();
- const dx=from.left+from.width/2-(to.left+to.width/2),dy=from.top+from.height/2-(to.top+to.height/2),s=button.offsetWidth/Math.max(1,card.offsetWidth);
+ const dx=from.left+from.width/2-(to.left+to.width/2),dy=from.top+from.height/2-(to.top+to.height/2),s=button.offsetWidth*poseOf(button).s/Math.max(1,card.offsetWidth);
  const there='translate('+dx+'px,'+dy+'px) rotate('+rotationOf(button)+'deg) scale('+s+')';
  return new Promise(done=>{
   card.style.transition='none';card.style.transform=reverse?'none':there;card.getBoundingClientRect();
