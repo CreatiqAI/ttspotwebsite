@@ -68,12 +68,13 @@ document.querySelectorAll('.m-top').forEach(button=>button.addEventListener('cli
 document.querySelectorAll('.m-top').forEach(button=>button.insertAdjacentHTML('afterbegin','<svg class="m-top-ring" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><circle class="m-top-track" cx="26" cy="26" r="24.5"/><circle class="m-top-arc" cx="26" cy="26" r="24.5" pathLength="100"/></svg>'));
 const topArcs=[...document.querySelectorAll('.m-top-arc')];
 const avoid=[...document.querySelectorAll('.hero .actions .primary,.hero .m-hero-partner,.mobile-ending .primary,.mobile-ending .m-ending-partner,.mobile-ending .m-footnote,.tt-footer a')];
-let frameId=0;
+let frameId=0,finishSent=false;
 function setVisible(el,on){if(!el)return;el.classList.toggle('is-visible',on);el.toggleAttribute('inert',!on)}
 function paint(){
  frameId=0;setHowMode();paintHow();if(!isPhone())return;
  const page=document.scrollingElement||document.documentElement,max=Math.max(1,page.scrollHeight-innerHeight),p=Math.max(0,Math.min(1,scrollY/max));
  progress.style.setProperty('--m-progress',p.toFixed(4));
+ if(!finishSent&&p>=.985&&!document.documentElement.classList.contains('intro-running')){finishSent=true;window.dispatchEvent(new Event('ttspot-finish'))}
  for(const arc of topArcs)arc.style.strokeDashoffset=(100-p*100).toFixed(2);
  const intro=document.documentElement.classList.contains('intro-running'),dialog=!!document.querySelector('dialog[open]');
  progress.classList.toggle('is-visible',!intro&&scrollY>40);

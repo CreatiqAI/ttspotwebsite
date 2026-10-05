@@ -71,7 +71,17 @@ html.tc-open{overflow:hidden}
 .cards-glow span:last-child{inset:-10%;background:radial-gradient(closest-side,#f5b301,rgba(245,179,1,.35) 45%,transparent 74%)}
 .m-cards:not(.is-seq) .cards-glow{display:none}
 .m-cards.is-seq .cards-detail{display:block}
-.cards-detail[data-state="intro"]{visibility:hidden}
+.cd-intro{display:none}
+.cards-detail[data-state="intro"]>:not(.cd-intro){display:none}
+.cards-detail[data-state="intro"] .cd-intro{display:block}
+.cd-intro-title{margin:0 0 12px;font:700 12px 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#c9cace}
+.cd-intro-rarity{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.cd-intro-rarity li{display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border:1px solid #ffffff1f;border-radius:999px;background:#ffffff0d}
+.cd-intro-rarity b{font:italic 800 20px/1 'Barlow Condensed','Arial Narrow',sans-serif;color:#fff}
+.cd-intro-cue{margin:20px 0 0;font-size:15px;color:#c9cace}
+.cd-intro-cue span{display:inline-block;margin-right:6px;color:#ff3a50;animation:cd-cue 1.4s ease-in-out infinite}
+@keyframes cd-cue{50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.cd-intro-cue span{animation:none}}
 .cards-detail.swap-a{animation:cd-in-a .32s ease both}.cards-detail.swap-b{animation:cd-in-b .32s ease both}
 @keyframes cd-in-a{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes cd-in-b{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}

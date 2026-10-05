@@ -7,6 +7,8 @@ if(!section||!stage||!fan)return;
 const CARDS=window.TTSPOT_CARDS||[];
 const cards=[...fan.querySelectorAll('.m-fan-card')],glows=[...section.querySelectorAll('.cards-glow span')],steps=[...section.querySelectorAll('[data-card-step]')];
 const detail=section.querySelector('.cards-detail'),countEl=detail.querySelector('.cd-count span'),nameEl=detail.querySelector('.cd-name'),rarityEl=detail.querySelector('.cd-rarity'),lineEl=detail.querySelector('.cd-line');
+/* Before card 01 comes forward, the detail panel shows the set at a glance instead of standing empty. */
+const intro=document.createElement('div');intro.className='cd-intro';intro.innerHTML='<p class="cd-intro-title">The set</p><ul class="cd-intro-rarity"><li><span class="tc-rarity" data-rarity="common">Common</span><b>×4</b></li><li><span class="tc-rarity" data-rarity="rare">Rare</span><b>×2</b></li><li><span class="tc-rarity" data-rarity="secret">Secret</span><b>×1</b></li></ul><p class="cd-intro-cue"><span aria-hidden="true">↓</span> Scroll to deal the cards</p>';detail.prepend(intro);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(max-width:760px)'),tablet=matchMedia('(min-width:761px) and (max-width:1050px)');
 const FAN=[-30,-20,-10,10,20,30,0],FANZ=[1,2,3,3,2,1,5];
 /* Progress phases: deck until DECK, spreading until SPREAD, seven focus slots until FOCUS_END, then settled. */

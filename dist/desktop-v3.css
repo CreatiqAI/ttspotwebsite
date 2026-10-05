@@ -272,3 +272,7 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
  .primary:hover,.partner-directory .partner-brands article:hover,.mobile-events .mobile-event:hover{transform:none}
 }
 }
+
+/* Partners, FAQ and the closing section: soft red glows instead of the racing-art edge strips, which were cut hard and repeated with a seam between sections. */
+.road-journey #vendors,.road-journey .faq,.road-journey .final-invite{background-image:radial-gradient(42% 60% at 100% 18%,rgba(239,0,16,.17),transparent 72%),radial-gradient(38% 55% at 0% 82%,rgba(239,0,16,.12),transparent 72%);background-size:auto;background-repeat:no-repeat;background-position:0 0;background-color:#000}
+.m-ending-bg{border-radius:0;opacity:.75;-webkit-mask-image:radial-gradient(closest-side,#000 35%,transparent 100%);mask-image:radial-gradient(closest-side,#000 35%,transparent 100%)}

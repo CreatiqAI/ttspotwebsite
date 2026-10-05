@@ -131,6 +131,10 @@ body{overflow-x:clip;background:var(--m-bg)}
 .m-cards.is-seq .cards-fanbox{flex:1;min-height:0;width:100%;max-width:380px;height:auto;margin:6px auto 0;--seq-w:clamp(100px,29vw,130px)}
 .m-cards.is-seq .cards-detail{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px}
 .m-cards.is-seq .cards-detail .cd-count,.m-cards.is-seq .cards-detail .cd-line{display:none}
+.m-cards.is-seq .cards-detail .cd-intro-title,.m-cards.is-seq .cards-detail .cd-intro-cue{display:none}
+.m-cards.is-seq .cd-intro-rarity{justify-content:center;gap:6px}
+.m-cards.is-seq .cd-intro-rarity li{gap:6px;padding:5px 10px 5px 5px}
+.m-cards.is-seq .cd-intro-rarity b{font-size:16px}
 .m-cards.is-seq .cards-detail .cd-name{margin:0;font-size:24px}
 .m-cards.is-seq .cards-detail[data-state="done"] .cd-name{font-size:19px}
 .m-cards.is-seq .cards-progress{flex:none;width:100%;max-width:380px}
