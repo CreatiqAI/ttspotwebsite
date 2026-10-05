@@ -81,6 +81,22 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
  .m-how.is-live .m-how-step:not(.is-active) img{transform:scale(.9) rotate(-4deg)}
 }
 
+/* ---------- Extra detail for larger screens (phones keep the short copy) ---------- */
+.m-how-step{grid-template-rows:1fr auto auto auto auto auto 1fr}
+.m-how-step .how-more[hidden],.m-how-step .how-more{grid-column:3;grid-row:6;display:block;justify-self:stretch;max-width:30em;margin-top:22px}
+.how-facts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.how-facts li{padding:12px 16px;border:1px solid var(--d-line);border-radius:14px;background:var(--d-glass);font-size:15px;line-height:1.5;color:var(--d-body)}
+.how-facts b{display:block;margin-bottom:2px;color:#fff;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.how-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.how-points>div{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 14px;border:1px solid var(--d-line);border-radius:12px;background:var(--d-glass)}
+.how-points>div:last-child{grid-column:1/-1}
+.how-points dt{font-size:14px;color:var(--d-body)}
+.how-points dd{margin:0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;font-size:22px;line-height:1;color:#fff;white-space:nowrap}
+.how-points>div:last-child dd{font-size:18px}
+.how-note{max-width:none!important;margin:14px 0 0!important;font-size:15px!important;line-height:1.5!important;color:var(--d-body)}
+.how-small{display:block;margin-top:8px;font-size:12px;color:var(--d-muted)}
+.partner-directory .partner-brands article:last-child .m-brand-more[hidden],.partner-directory .partner-brands article:last-child .m-brand-more{grid-column:1/-1;display:block;margin:12px 0 0;font-size:14px;line-height:1.5;color:var(--d-muted)}
+
 /* ---------- TiTi cards: copy + details left, cards right; pinned sequence when motion is allowed ---------- */
 .road-journey>section.m-cards,.m-cards[hidden]{display:block;padding:0;overflow:visible;background:#000}
 .cards-stage{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;align-items:start;padding:110px 6% 120px;text-align:left;background:linear-gradient(90deg,#000 0,#000 46%,rgba(0,0,0,.35) 72%,rgba(0,0,0,0) 100%),url('racing-black-red-v2.webp') center/cover no-repeat #000;overflow:hidden}
