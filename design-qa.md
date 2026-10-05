@@ -61,3 +61,16 @@ final result: passed
 - Reserved a 52px left lane outside the closing section so its photo and opaque content never cover the road or animated car. Adjusted mobile heading scale to retain usable content width.
 - Browser verified at 390px: uninterrupted road beside photo, heading and CTA. At 320px: photo starts at x=52, content width 221px, no horizontal overflow. All changes remain within max-width:760px.
 - check-performance.cjs and git diff --check passed. Screenshot: ../mobile-road-clear.png. Result: passed.
+
+## 2026-10-05 — Mobile landing page redesign (branch mobile-redesign)
+Scope: phones only (max-width:760px). `mobile-v2.css` (media-scoped) and `mobile-v2.js` replace `mobile.css`, `mobile-editorial.css` and `mobile-editorial.js`. Desktop and tablet markup changes are `hidden` phone-only elements, plus one inline `span#title-region` inside the h1.
+- Hero: h1 reads "Join meets. Earn rewards." on phones (region name in its own span, hidden there). Region arrows replaced by a KL/Selangor · Johor · Penang chip row that drives the existing backgrounds, copy and cloud transition. Waitlist + "Become a partner" buttons, compact pause/play icon next to the menu, dark scrim.
+- New "How it works" step cards (scroll-snap) reuse the TTPoints/QR check-in/rewards copy and keep the planned/at-launch/partner wording; the TTPoints chapter is hidden on phones.
+- Features: 2×2 tap-to-expand cards (QR Check-In and TTPoints copy live in the steps). Duplicate "Same passion. More places." blocks hidden.
+- Map: static preview card; `carplay.html?view=map` opens in a full-screen sheet only after a tap (no dock, dashboard or music). The dashboard iframe uses `data-src` and loads only above 760px.
+- Side road, car, music checkpoint, round progress button and finish pop-up removed on phones; a slim top progress road reuses the car sprite. `continuous-highway.js` (and its inline copy) skips drawing and the asphalt fetch while the road is hidden.
+- Partners logo grid first, then the partner pitch card; event swipe cards keep past-event labels; FAQ; TiTi closing call to action; sticky waitlist bar (hidden over the hero, the closing section, the footer and dialogs; safe-area padding).
+- Browser evidence (headless Chrome via CDP): 390x844, 360x780, 430x932, 375x667, 1.2x text and reduced motion. No horizontal overflow; tap targets at least 44px. Before tapping, phones fetch no carplay.html, Google Maps, asphalt texture or racing artwork.
+- Desktop/tablet regression at 1440, 1024, 768 and 761 wide: geometry and computed styles of every rendered element match the main baseline apart from the new inline h1 span. Reduced-motion pixel diffs are zero except live Google Maps tiles inside the CarPlay iframe.
+- check-music.cjs failed on main: it reads the last plain `<script>`, which had become the invite-link snippet. That snippet is now tagged `data-role="invite-link"`.
+- Checks: check-seo, check-events, check-music, check-performance, tests/signup.test.cjs, git diff --check passed.
