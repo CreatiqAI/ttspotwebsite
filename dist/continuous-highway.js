@@ -3,7 +3,7 @@
 const canvas=document.createElement('canvas');canvas.className='continuous-highway';canvas.setAttribute('aria-hidden','true');journey.prepend(canvas);
 const checkpoint=document.createElement('button');checkpoint.className='music-checkpoint';checkpoint.type='button';checkpoint.innerHTML='<span aria-hidden="true">▶</span><small>TTSPOT RADIO</small>';checkpoint.setAttribute('aria-label','Play music at the checkpoint');journey.append(checkpoint);checkpoint.onclick=()=>window.dispatchEvent(new Event('ttspot-music-toggle'));let musicCrossed=false;
 let active=false,lastRender='',renderFrame=0;checkpoint.hidden=true;let geometry,points=[],finishY=Infinity;const ease=t=>t*t*t*(t*(t*6-15)+10);
-function centre(y){const {h,w,bh,bw,lead}=geometry;if(bw<=760)return 30;if(y<lead)return bw/2+(roadX(0)-.5)*w;if(y<h)return bw/2+(roadX(Math.min(1,(y-lead)/(w*3)))-.5)*w;const t=(y-h)/bh,start=(roadX(1)-.5)*w;if(t>=1)return bw/2;const reach=Math.min(bw*.39,bw/2-65);if(t<.3)return bw/2+start+(reach-start)*ease(t/.3);if(t<.57)return bw/2+reach;return bw/2+reach*(1-ease((t-.57)/.43));}
+function centre(y){const {h,bh,bw}=geometry;if(bw<=760)return 30;if(y<h)return bw/2;/* One straight centre lane until the bridge; its sweep runs through the open space beside the dashboard. */const t=(y-h)/bh;if(t>=1)return bw/2;const reach=Math.min(bw*.39,bw/2-65);if(t<.3)return bw/2+reach*ease(t/.3);if(t<.57)return bw/2+reach;return bw/2+reach*(1-ease((t-.57)/.43));}
 function sample(y){const x=centre(y),dx=(centre(y+1)-centre(Math.max(0,y-1)))/2,n=Math.hypot(1,dx);return{x,y,nx:1/n,ny:-dx/n,angle:-Math.atan2(dx,1)*180/Math.PI};}
 const texture=new Image();// Fetch the full quality texture on the first visible render. Phones hide the road, so nothing is drawn or fetched there.
 

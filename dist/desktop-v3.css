@@ -105,6 +105,9 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
  @keyframes d-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
 }
 
+/* ---------- Road: one straight centre lane through How it works and the features; no milestone markers ---------- */
+.road-journey .experience>.road-milestones{display:none!important}
+
 /* ---------- Features along the winding road: TiTi on each card, one line each ---------- */
 .road-journey .experience .section-top .intro p{margin:0 0 18px}
 .road-journey .experience .feature{grid-template-columns:90px 1fr;transition:opacity .55s ease,transform .65s ease,visibility .55s,border-color .2s,box-shadow .2s}
