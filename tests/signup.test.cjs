@@ -81,3 +81,31 @@ test('receiver preserves legacy rows, detects email/phone duplicates and creates
  assert.equal(submit({...next,phone:'+601188888888'}).code,'duplicate');
  rows[0][0]='Unrelated';assert.equal(submit(next).success,false);
 });
+
+test('phone form chips mirror each select and change it without new field names or values',()=>{
+ const html=fs.readFileSync('dist/index.html','utf8');
+ const selects={};
+ for(const m of html.matchAll(/<select id="([^"]+)" name="([^"]+)"[^>]*>([\s\S]*?)<\/select>/g))selects[m[1]]={name:m[2],options:[...m[3].matchAll(/<option(?: value="([^"]*)")?>([^<]*)<\/option>/g)].map(o=>({value:o[1]??o[2],text:o[2]}))};
+ assert.deepEqual(Object.keys(selects).sort(),['business-category','region','role']);
+ assert.deepEqual([selects.region.name,selects.role.name,selects['business-category'].name],['region','role','businessCategory']);
+ assert(html.includes('<script src="form-chips.js" defer></script>'));
+ class El{constructor(tag){this.tagName=tag;this.children=[];this.attrs={};this.dataset={};this.listeners={};this.classes=[];this.classList={add:c=>this.classes.push(c)}}
+  setAttribute(k,v){this.attrs[k]=v}getAttribute(k){return this.attrs[k]}append(c){this.children.push(c)}after(n){this.next=n}
+  addEventListener(n,f){(this.listeners[n]||=[]).push(f)}dispatchEvent(e){(this.listeners[e.type]||[]).forEach(f=>f(e));return true}click(){this.dispatchEvent({type:'click'})}}
+ const context={Event:class{constructor(type,init){this.type=type;this.bubbles=!!init?.bubbles}},window:{}};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('dist/form-chips.js','utf8'),context);
+ for(const def of Object.values(selects)){
+  const select=new El('select');select.options=def.options;select.value=def.options[0].value;select.labels=[{textContent:'Preferred region *'}];
+  let changes=0;select.addEventListener('change',e=>{assert(e.bubbles);changes++});
+  const set=context.window.TTSpotChoiceChips(select,{createElement:t=>new El(t)});
+  const real=def.options.filter(o=>o.value);
+  assert.deepEqual(Array.from(set.chips,c=>c.dataset.value),real.map(o=>o.value));
+  assert.deepEqual(Array.from(set.chips,c=>c.textContent),real.map(o=>o.text));
+  assert.equal(set.group.hidden,true);assert.equal(select.next,set.group);assert(select.classes.includes('has-choice-chips'));
+  assert.equal(set.group.attrs['aria-label'],'Preferred region');
+  set.chips.at(-1).click();
+  assert.equal(select.value,real.at(-1).value);assert.equal(changes,1);
+  assert.deepEqual(Array.from(set.chips,c=>c.attrs['aria-pressed']),real.map((o,i)=>String(i===real.length-1)));
+  select.value=real[0].value;set.sync();assert.equal(set.chips[0].attrs['aria-pressed'],'true');
+ }
+});

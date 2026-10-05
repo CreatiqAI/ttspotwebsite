@@ -74,3 +74,14 @@ Scope: phones only (max-width:760px). `mobile-v2.css` (media-scoped) and `mobile
 - Desktop/tablet regression at 1440, 1024, 768 and 761 wide: geometry and computed styles of every rendered element match the main baseline apart from the new inline h1 span. Reduced-motion pixel diffs are zero except live Google Maps tiles inside the CarPlay iframe.
 - check-music.cjs failed on main: it reads the last plain `<script>`, which had become the invite-link snippet. That snippet is now tagged `data-role="invite-link"`.
 - Checks: check-seo, check-events, check-music, check-performance, tests/signup.test.cjs, git diff --check passed.
+
+## 2026-10-05 — Mobile redesign round 2 (owner feedback)
+- Light-ink transparent TT logo on phones (header, partner card, footer, map sheet) via `<picture class="m-pic">` (display:contents; sources hidden) so desktop keeps its existing files and layout.
+- How it works is a pinned section (position:sticky, ~3 viewport heights): native scroll position picks step 1, 2 or 3 (cross-fade), with three tappable progress segments and a drifting winding-road backdrop. No scroll hijacking; reduced motion and no-JS show the three steps stacked.
+- More brand life: TiTi poses per section, a fanned stack of the seven TiTi cards ("At launch"), darkened photo backdrops, glass cards, 300 ms fade/slide reveals (off for reduced motion). 28 new phone-only WebPs in `dist/mobile-assets/` (480 KB, lazy below the fold).
+- Far fewer words: one headline + at most one line per block, kickers hidden, one honesty footnote in the closing section, "At launch" tags on rewards.
+- Partners: reversed transparent logos on identical tiles; no location lines; linked cards (12V website, Typeone directions) are whole-card links with a corner arrow; "Your brand here" has a real "Partner with us" button; one short listing note for Soundstream.
+- Back to top: round button inside the sticky bar, plus a floating one when the bar is away (never over a button or link, hidden when the footer's own link is visible).
+- Forms: `form-chips.js` builds tappable chips from each select's own options (region, role, business category); the hidden select still holds and submits the value. New test in tests/signup.test.cjs.
+- Evidence: 390/360/430/375 widths, 1.2x text, reduced motion; no horizontal overflow, no tap target under 44 px. Phone image weight vs live main: 4.6 MB to 1.5 MB on load, 5.1 MB to 1.9 MB after a full scroll. Desktop/tablet (1440, 1024, 768, 761) geometry identical except the inline h1 span; pixel differences only in live map tiles and hero video frames.
+- Checks: check-seo, check-events, check-music, check-performance, tests/signup.test.cjs (5/5), git diff --check passed.
