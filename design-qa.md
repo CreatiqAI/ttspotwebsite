@@ -85,3 +85,7 @@ Scope: phones only (max-width:760px). `mobile-v2.css` (media-scoped) and `mobile
 - Forms: `form-chips.js` builds tappable chips from each select's own options (region, role, business category); the hidden select still holds and submits the value. New test in tests/signup.test.cjs.
 - Evidence: 390/360/430/375 widths, 1.2x text, reduced motion; no horizontal overflow, no tap target under 44 px. Phone image weight vs live main: 4.6 MB to 1.5 MB on load, 5.1 MB to 1.9 MB after a full scroll. Desktop/tablet (1440, 1024, 768, 761) geometry identical except the inline h1 span; pixel differences only in live map tiles and hero video frames.
 - Checks: check-seo, check-events, check-music, check-performance, tests/signup.test.cjs (5/5), git diff --check passed.
+
+## 2026-10-05 — Round 3a: TiTi card viewer
+- Fan cards are buttons. Tapping one expands it (FLIP, ~360 ms) into `card-viewer.js`/`card-viewer.css`: swipe or arrows/keys through the 7, tap or "Flip card" to see the back, close with X, backdrop, swipe down or Esc; focus returns to the fan card. Card names, rarity, lines and colours follow the app's card_types data. Full-size WebPs in `dist/titi-cards/` (663 KB) load only when the viewer opens. The fan deals out of a stack once on scroll-in; reduced motion fades instead of flipping.
+- Phones vs 475f5ad (390x844): reduced motion, only the "Tap a card" hint text differs; with motion, only the dealing/floating fan and the hero video. The hint sits before the fan in the DOM so it doesn't force later content into compositor layers.
