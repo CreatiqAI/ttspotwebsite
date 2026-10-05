@@ -86,6 +86,8 @@ html.tc-open{overflow:hidden}
 .cards-progress button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:4px}
 .cp-bar{position:relative;display:block;height:4px;border-radius:2px;background:#ffffff26;overflow:hidden}
 .cp-bar:after{content:'';position:absolute;inset:0;background:#ef0010;transform-origin:0 50%;transform:scaleX(var(--fill,0))}
+/* Bar colour follows the card's rarity: commons red, rares (05, 06) silver like the Rare pill, the secret (07) gold. */
+.cards-progress button[data-card-step="4"] .cp-bar:after,.cards-progress button[data-card-step="5"] .cp-bar:after{background:linear-gradient(90deg,#f4f6fa,#a9b0bc 50%,#eef1f6);box-shadow:0 0 8px #dfe6f055}
 .cards-progress button:last-child .cp-bar:after{background:#f5b301}
 .cards-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:20px 0 0;padding:0;list-style:none;text-align:left}
 .cards-list li{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:1.35;color:#d6d7db}
