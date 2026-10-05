@@ -101,6 +101,8 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 .road-journey>section.m-cards,.m-cards[hidden]{display:block;padding:0;overflow:visible;background:#000}
 .cards-stage{display:grid;grid-template-columns:minmax(0,1fr) var(--d-gap) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;align-items:start;padding:110px 6% 120px;text-align:left;background:linear-gradient(90deg,#000 0,#000 46%,rgba(0,0,0,.35) 72%,rgba(0,0,0,0) 100%),url('racing-black-red-v2.webp') center/cover no-repeat #000;overflow:hidden}
 .cards-stage>.m-sec-bg{display:none}
+/* The stage (and its backdrop) paints below the road canvas, so the centre road and car continue straight through the pinned section. Cards and details stay in the side columns. */
+.road-journey>section.m-cards>.cards-stage{z-index:auto}
 .cards-copy{grid-column:1;grid-row:2}
 .cards-copy h2{margin:0 0 18px}
 .cards-copy .m-line{margin:0 0 18px}
