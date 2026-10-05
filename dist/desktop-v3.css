@@ -143,13 +143,13 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 .cards-detail .cd-line{font-size:18px}
 
 /* ---------- Inside the app: rich tiles in two columns either side of the road, over a night-meet photo ---------- */
-.road-journey .experience{height:auto!important;min-height:0;padding:110px 6% 120px;overflow:clip;background:linear-gradient(180deg,#000 0,rgba(0,0,0,.74) 16%,rgba(0,0,0,.8) 84%,#000 100%),url('mobile-meet-v1.webp') center/cover no-repeat #000!important}
+.road-journey .experience{height:auto!important;min-height:0;padding:110px 6% 120px;overflow:clip;background:radial-gradient(34% 30% at 18% 32%,rgba(239,0,16,.42),transparent 70%),radial-gradient(30% 28% at 84% 62%,rgba(255,58,80,.32),transparent 70%),radial-gradient(30% 26% at 30% 88%,rgba(255,255,255,.1),transparent 70%),linear-gradient(180deg,#000 0,rgba(0,0,0,.42) 14%,rgba(0,0,0,.5) 86%,#000 100%),url('mobile-meet-v1.webp') center/cover no-repeat #000!important}
 .road-journey .experience>.m-what,.road-journey .experience>.m-what[hidden]{display:grid;grid-template-columns:minmax(0,1fr) var(--d-lane) minmax(0,1fr);row-gap:20px;position:relative;z-index:2}
 .m-what-head{grid-column:1;grid-row:1;align-self:end;margin-bottom:10px}
 .m-what-head h2{margin:0 0 14px}
 .m-what-sub[hidden],.m-what-sub{display:block;margin:0;max-width:28em;font-size:18px;line-height:1.55;color:var(--d-body)}
 .m-what .m-tiles{display:contents}
-.m-what .app-tile{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start;min-width:0;padding:22px 24px 24px;border:1px solid var(--d-line);border-radius:22px;background:rgba(14,15,18,.86);box-shadow:0 18px 40px #0007;transition:transform .2s,border-color .2s,box-shadow .2s}
+.m-what .app-tile{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start;min-width:0;padding:22px 24px 24px;border:1px solid rgba(255,255,255,.16);border-radius:22px;background:linear-gradient(150deg,rgba(255,255,255,.13) 0,rgba(255,255,255,.05) 45%,rgba(255,255,255,.03) 100%);-webkit-backdrop-filter:blur(22px) saturate(165%);backdrop-filter:blur(22px) saturate(165%);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(255,255,255,.05),0 18px 40px rgba(0,0,0,.4);transition:transform .2s,border-color .2s,box-shadow .2s}
 .m-what .app-tile:hover{transform:translateY(-3px);border-color:#ef00105c;box-shadow:0 22px 46px #0009}
 .m-what .app-tile:nth-child(odd){grid-column:1}.m-what .app-tile:nth-child(even){grid-column:3}
 .m-what .app-tile:nth-child(1),.m-what .app-tile:nth-child(2){grid-row:2}.m-what .app-tile:nth-child(3),.m-what .app-tile:nth-child(4){grid-row:3}.m-what .app-tile:nth-child(5),.m-what .app-tile:nth-child(6){grid-row:4}
@@ -158,7 +158,7 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 .m-what .app-tile .app-short{display:none}
 .m-what .app-tile .app-desc[hidden],.m-what .app-tile .app-desc{grid-column:2;display:block;margin:0 0 12px;font-size:15.5px;line-height:1.55;color:var(--d-body)}
 .m-what .app-tile .app-bullets[hidden],.m-what .app-tile .app-bullets{grid-column:2;display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.m-what .app-bullets li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.45;color:#a9abb2}
+.m-what .app-bullets li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.45;color:#c7c9ce}
 .m-what .app-bullets li:before{content:'';position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--d-red)}
 
 /* ---------- Map ---------- */

@@ -145,13 +145,17 @@ body{overflow-x:clip;background:var(--m-bg)}
 .road-journey .experience{height:auto!important;padding:60px var(--m-gutter)!important}
 .road-journey .experience>*:not(.m-what){display:none!important}
 .road-journey .experience>.m-what,.road-journey .experience>.m-what[hidden]{display:block;position:relative;z-index:2}
-.road-journey .experience:before{display:block!important;content:'';position:absolute;inset:0;width:auto;height:auto;transform:none;z-index:0;background:radial-gradient(80% 45% at 0 0,#ef001026 0,transparent 70%),radial-gradient(70% 40% at 100% 100%,#ef00101a 0,transparent 70%)}
+/* Liquid glass: drifting light behind, frosted tiles in front, so the blur has colour to work with. */
+.road-journey .experience:before{display:block!important;content:'';position:absolute;inset:0;width:auto;height:auto;transform:none;z-index:0;background:radial-gradient(42% 26% at 14% 20%,rgba(239,0,16,.55),transparent 70%),radial-gradient(38% 24% at 90% 42%,rgba(255,58,80,.4),transparent 70%),radial-gradient(44% 26% at 26% 76%,rgba(255,255,255,.13),transparent 70%),radial-gradient(40% 26% at 86% 92%,rgba(239,0,16,.38),transparent 70%),linear-gradient(180deg,#09090b 0,#16060a 50%,#09090b 100%);background-size:150% 150%;background-position:0 0}
+@media (prefers-reduced-motion:no-preference){.road-journey .experience:before{animation:m-liquid 16s ease-in-out infinite alternate}}
+@keyframes m-liquid{0%{background-position:0 0}50%{background-position:60% 30%}100%{background-position:100% 100%}}
 .m-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:22px 0 0;padding:0;list-style:none}
-.m-tiles li{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:12px 14px 16px;border:1px solid var(--m-line);border-radius:20px;background:linear-gradient(160deg,#18191d 0,#0d0e10 80%);overflow:hidden}
-.m-tiles li:before{content:'';position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(#ef001038,transparent 70%)}
+.m-tiles li{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:12px 14px 16px;border:1px solid rgba(255,255,255,.17);border-radius:20px;background:linear-gradient(150deg,rgba(255,255,255,.15) 0,rgba(255,255,255,.06) 45%,rgba(255,255,255,.035) 100%);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(255,255,255,.05),0 14px 30px rgba(0,0,0,.35);overflow:hidden}
+.m-tiles li:before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(125deg,rgba(255,255,255,.2) 0,rgba(255,255,255,0) 38%);pointer-events:none}
 .m-tiles img{position:relative;display:block;width:auto;height:86px;margin:0 0 8px -4px;filter:drop-shadow(0 8px 14px #000a)}
 .m-tiles h3{margin:0 0 4px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;font-size:22px;line-height:1;color:#fff}
-.m-tiles p{margin:0;font-size:13.5px;line-height:1.45;color:var(--m-muted)}
+.m-tiles p{position:relative;margin:0;font-size:13.5px;line-height:1.45;color:#dcdde1}
+.m-tiles h3{position:relative}
 .m-tiles .m-tag{margin-top:10px;font-size:10px;padding:4px 8px}
 
 /* ---------- Map ---------- */
