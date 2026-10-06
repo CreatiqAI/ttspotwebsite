@@ -131,9 +131,10 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 .road-journey .experience>.road-milestones{display:none!important}
 
 .m-cards.is-seq{height:220vh;height:220svh}
-.m-cards.is-seq .cards-stage{height:100vh;height:100svh;padding:clamp(60px,10vh,120px) 6% clamp(40px,7vh,80px);grid-template-rows:auto auto 1fr auto auto;align-content:stretch}
-.m-cards.is-seq .cards-copy{grid-row:1}
-.m-cards.is-seq .cards-detail{grid-column:1;grid-row:2;margin-top:clamp(18px,4vh,40px);max-width:30em}
+.m-cards.is-seq .cards-stage{height:100vh;height:100svh;padding:clamp(60px,10vh,120px) 6% clamp(40px,7vh,80px);grid-template-rows:1fr auto auto 1fr;align-content:stretch}
+/* Text block and fan share the same vertical centre. */
+.m-cards.is-seq .cards-copy{grid-row:2}
+.m-cards.is-seq .cards-detail{grid-column:1;grid-row:3;margin-top:clamp(18px,4vh,40px);max-width:30em}
 .m-cards.is-seq .cards-progress{grid-column:1;grid-row:4;max-width:460px;width:100%}
 .m-cards.is-seq .cards-stage>.m-fan-hint{display:none}
 .m-cards.is-seq .cards-fanbox{grid-row:1/-1;align-self:stretch;height:auto;--seq-w:clamp(130px,12.5vw,200px)}
@@ -246,6 +247,8 @@ header .logo img{width:auto;height:58px;border-radius:0;object-fit:contain;filte
 
 /* ---------- Tablet ---------- */
 @media (max-width:1050px){
+ .m-cards.is-seq .cards-stage{grid-template-rows:auto auto 1fr auto auto}
+ .m-cards.is-seq .cards-copy{grid-row:1}
  .m-cards.is-seq .cards-fanbox{grid-row:1/4;--seq-w:clamp(110px,14.5vw,140px)}
  .m-cards.is-seq .cards-detail{grid-column:3;grid-row:4/6;align-self:start;margin-top:8px;text-align:center;max-width:none}
  .m-cards.is-seq .cards-progress{grid-row:4;align-self:end}
