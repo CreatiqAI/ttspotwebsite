@@ -8,11 +8,12 @@ const CARDS=window.TTSPOT_CARDS||[];
 const cards=[...fan.querySelectorAll('.m-fan-card')],glows=[...section.querySelectorAll('.cards-glow span')],steps=[...section.querySelectorAll('[data-card-step]')];
 const detail=section.querySelector('.cards-detail'),countEl=detail.querySelector('.cd-count span'),nameEl=detail.querySelector('.cd-name'),rarityEl=detail.querySelector('.cd-rarity'),lineEl=detail.querySelector('.cd-line');
 /* Before card 01 comes forward, the detail panel shows the set at a glance instead of standing empty. */
-const intro=document.createElement('div');intro.className='cd-intro';intro.innerHTML='<p class="cd-intro-title">The set</p><ul class="cd-intro-rarity"><li><span class="tc-rarity" data-rarity="common">Common</span><b>×4</b></li><li><span class="tc-rarity" data-rarity="rare">Rare</span><b>×2</b></li><li><span class="tc-rarity" data-rarity="secret">Secret</span><b>×1</b></li></ul><p class="cd-intro-cue"><span aria-hidden="true">↓</span> Scroll to deal the cards</p>';detail.prepend(intro);
+const intro=document.createElement('div');intro.className='cd-intro';intro.innerHTML='<p class="cd-intro-title">The set</p><ul class="cd-intro-rarity"><li><span class="tc-rarity" data-rarity="common">Common</span><b>×4</b></li><li><span class="tc-rarity" data-rarity="rare">Rare</span><b>×2</b></li><li><span class="tc-rarity" data-rarity="secret">Secret</span><b>×1</b></li></ul><p class="cd-intro-cue"><span aria-hidden="true">↓</span> Scroll to deal the cards</p>';detail.prepend(intro);const cueEl=intro.querySelector('.cd-intro-cue');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(max-width:760px)'),tablet=matchMedia('(min-width:761px) and (max-width:1050px)');
 const FAN=[-30,-20,-10,10,20,30,0],FANZ=[1,2,3,3,2,1,5];
-/* Progress phases: deck until DECK, spreading until SPREAD, seven focus slots until FOCUS_END, then settled. */
-const DECK=.06,SPREAD=.17,FOCUS_END=.93,SLOT=(FOCUS_END-SPREAD)/7;
+/* Progress phases: closed deck until DECK, opening into the fan until SPREAD, then the fan stays open while the page carries on.
+   (The owner preferred no one-by-one focus: FOCUS_END = SPREAD, so there are no focus slots.) */
+const DECK=.12,SPREAD=.62,FOCUS_END=.62,SLOT=(FOCUS_END-SPREAD)/7;
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
 const back=t=>{t=clamp(t);const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
 let live=false,ch=0,cw=0,boxW=0,frame=0,active=-2,swap=false,poses=cards.map(()=>({r:0,s:1}));
@@ -24,6 +25,7 @@ function setMode(){
  measure();schedule();
 }
 function weight(i,p){
+ if(SLOT<=0)return 0;
  const u=(p-(SPREAD+SLOT*i))/SLOT;if(u<=0||u>=1)return 0;
  if(u<.3)return back(u/.3);if(u<.76)return 1;return 1-smooth((u-.76)/.24);
 }
@@ -32,8 +34,8 @@ function showDetail(i){
  detail.classList.toggle('swap-a',swap);detail.classList.toggle('swap-b',!swap);
  stage.classList.toggle('is-secret',i===6);
  if(i>=0&&i<7){const c=CARDS[i]||{};detail.dataset.state='card';countEl.textContent=String(i+1).padStart(2,'0');nameEl.textContent=c.name||'';rarityEl.textContent=c.rarity||'';rarityEl.dataset.rarity=(c.rarity||'').toLowerCase();lineEl.textContent=c.line||'';stage.style.setProperty('--focus-color',c.color||'#ef0010')}
- else if(i===7){detail.dataset.state='done';countEl.textContent='07';nameEl.textContent='4 common · 2 rare · 1 secret';lineEl.textContent='Tap any card to see it up close.'}
- else detail.dataset.state='intro';
+ else if(i===7){detail.dataset.state='done';cueEl.innerHTML='Tap a card to see it up close'}
+ else{detail.dataset.state='intro';cueEl.innerHTML='<span aria-hidden="true">↓</span> Scroll to deal the cards'}
  steps.forEach((b,j)=>j===i?b.setAttribute('aria-current','true'):b.removeAttribute('aria-current'));
 }
 const fills=steps.map(()=>-1);
