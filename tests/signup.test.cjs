@@ -109,3 +109,10 @@ test('phone form chips mirror each select and change it without new field names 
   select.value=real[0].value;set.sync();assert.equal(set.chips[0].attrs['aria-pressed'],'true');
  }
 });
+test('waitlist and partner buttons open the sign-up dialog, even with other dialogs earlier in the page',()=>{
+ const html=fs.readFileSync('dist/index.html','utf8');
+ assert(html.includes('<dialog id="early-access"'));
+ assert(!/const dialog=\$\('dialog'\)/.test(html),'the form script must not grab the first <dialog> on the page');
+ assert(/const dialog=\$\('#early-access'\),form=dialog\.querySelector\('form'\)/.test(html));
+ assert(/dialog\.querySelector\('\.close'\)\.onclick/.test(html));
+});
