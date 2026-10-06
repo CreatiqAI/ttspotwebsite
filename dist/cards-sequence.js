@@ -12,8 +12,11 @@ const intro=document.createElement('div');intro.className='cd-intro';intro.inner
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(max-width:760px)'),tablet=matchMedia('(min-width:761px) and (max-width:1050px)');
 const FAN=[-30,-20,-10,10,20,30,0],FANZ=[1,2,3,3,2,1,5];
 /* Progress phases: closed deck until DECK, opening into the fan until SPREAD, then the fan stays open while the page carries on.
-   (The owner preferred no one-by-one focus: FOCUS_END = SPREAD, so there are no focus slots.) */
-const DECK=.12,SPREAD=.62,FOCUS_END=.62,SLOT=(FOCUS_END-SPREAD)/7;
+   (The owner preferred no one-by-one focus: FOCUS_END = SPREAD, so there are no focus slots.)
+   Phones pin for a shorter stretch and start opening the deck while the section is still sliding up (LEAD), so it costs little scrolling. */
+let DECK=.12,SPREAD=.62,FOCUS_END=.62,SLOT=0,LEAD=0;
+function phases(){if(phone.matches){DECK=.06;SPREAD=.82;LEAD=.32}else{DECK=.12;SPREAD=.62;LEAD=0}FOCUS_END=SPREAD;SLOT=(FOCUS_END-SPREAD)/7}
+phases();
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
 const back=t=>{t=clamp(t);const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
 let live=false,ch=0,cw=0,boxW=0,frame=0,active=-2,swap=false,poses=cards.map(()=>({r:0,s:1}));
@@ -49,7 +52,7 @@ function paint(){
  frame=0;if(!live)return;
  const rect=section.getBoundingClientRect();if(rect.bottom<-50||rect.top>innerHeight+50)return;
  if(!ch)measure();
- const span=Math.max(1,rect.height-innerHeight),p=clamp(-rect.top/span);
+ const lead=innerHeight*LEAD,span=Math.max(1,rect.height-innerHeight)+lead,p=clamp((lead-rect.top)/span);
  const e=smooth((p-DECK)/(SPREAD-DECK));
  const L=ch*1.18,k=boxW&&cw?clamp((boxW-cw-8)/(2*L*Math.sin(Math.PI/6)),.55,1):1,fanY=ch*(phone.matches?.02:.04),focusS=phone.matches?1.32:tablet.matches?1.42:1.5,focusY=-ch*(phone.matches?.1:.08);
  let maxW=0,top=-1;const w=cards.map((_,i)=>weight(i,p));
@@ -75,12 +78,12 @@ function paint(){
 function schedule(){if(!frame)frame=requestAnimationFrame(paint)}
 steps.forEach((b,i)=>b.addEventListener('click',()=>{
  if(!live){cards[i]?.focus();return}
- const top=scrollY+section.getBoundingClientRect().top,span=section.offsetHeight-innerHeight;
+ const lead=innerHeight*LEAD,top=scrollY+section.getBoundingClientRect().top-lead,span=section.offsetHeight-innerHeight+lead;
  window.scrollTo({top:Math.round(top+span*(SPREAD+SLOT*(i+.5))),behavior:reduced.matches?'auto':'smooth'});
 }));
 addEventListener('scroll',schedule,{passive:true});
 addEventListener('resize',()=>{measure();schedule()});
-reduced.addEventListener('change',setMode);phone.addEventListener('change',()=>{measure();schedule()});
+reduced.addEventListener('change',setMode);phone.addEventListener('change',()=>{phases();measure();schedule()});
 new ResizeObserver(()=>{measure();schedule()}).observe(cards[0]);
 setMode();schedule();
 })();
