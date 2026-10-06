@@ -116,3 +116,36 @@ test('waitlist and partner buttons open the sign-up dialog, even with other dial
  assert(/const dialog=\$\('#early-access'\),form=dialog\.querySelector\('form'\)/.test(html));
  assert(/dialog\.querySelector\('\.close'\)\.onclick/.test(html));
 });
+test('desktop dropdowns mirror each select and change it without new field names or values',()=>{
+ const html=fs.readFileSync('dist/index.html','utf8');
+ assert(html.includes('<script src="form-select.js" defer></script>'));
+ class El{constructor(tag){this.tagName=tag;this.children=[];this.attrs={};this.dataset={};this.listeners={};this.cls=new Set();this.hidden=false;this.textContent='';
+  const c=this.cls;this.classList={add:x=>c.add(x),remove:x=>c.delete(x),contains:x=>c.has(x),toggle:(x,on)=>{on=on===undefined?!c.has(x):!!on;on?c.add(x):c.delete(x);return on}}}
+  setAttribute(k,v){this.attrs[k]=String(v)}getAttribute(k){return k in this.attrs?this.attrs[k]:null}removeAttribute(k){delete this.attrs[k]}
+  append(c){this.children.push(c)}after(n){this.next=n}contains(){return false}
+  addEventListener(n,f){(this.listeners[n]||=[]).push(f)}dispatchEvent(e){(this.listeners[e.type]||[]).forEach(f=>f(e));return true}click(){this.dispatchEvent({type:'click'})}}
+ const doc={createElement:t=>new El(t),addEventListener(){},removeEventListener(){}};
+ const context={Event:class{constructor(type,init){this.type=type;this.bubbles=!!init?.bubbles}},window:{}};
+ vm.createContext(context);vm.runInContext(fs.readFileSync('dist/form-select.js','utf8'),context);
+ const selects={};
+ for(const m of html.matchAll(/<select id="([^"]+)" name="([^"]+)"[^>]*>([\s\S]*?)<\/select>/g))selects[m[1]]=[...m[3].matchAll(/<option(?: value="([^"]*)")?>([^<]*)<\/option>/g)].map(o=>({value:o[1]??o[2],text:o[2]}));
+ for(const options of Object.values(selects)){
+  const select=new El('select');select.options=options;select.value=options[0].value;select.labels=[{id:'',textContent:'Label'}];
+  Object.defineProperty(select,'selectedIndex',{get(){return options.findIndex(o=>o.value===this.value)}});
+  let changes=0;select.addEventListener('change',e=>{assert(e.bubbles);changes++});
+  const set=context.window.TTSpotSelectMenu(select,doc);
+  const real=options.filter(o=>o.value);
+  assert.deepEqual(Array.from(set.items,i=>i.dataset.value),real.map(o=>o.value));
+  assert.deepEqual(Array.from(set.items,i=>i.textContent),real.map(o=>o.text));
+  assert.equal(set.wrap.hidden,true);assert.equal(select.next,set.wrap);assert(select.cls.has('has-select-menu'));
+  assert.equal(set.button.children[0].textContent,options[0].text);
+  assert.equal(set.button.cls.has('is-empty'),!options[0].value);
+  set.button.click();assert.equal(set.list.hidden,false);assert.equal(set.button.attrs['aria-expanded'],'true');
+  set.items.at(-1).click();
+  assert.equal(select.value,real.at(-1).value);assert.equal(changes,1);assert.equal(set.list.hidden,true);
+  assert.deepEqual(Array.from(set.items,i=>i.attrs['aria-selected']),real.map((o,i)=>String(i===real.length-1)));
+  assert.equal(set.button.children[0].textContent,real.at(-1).text);
+  select.setAttribute('aria-invalid','true');set.sync();assert.equal(set.button.attrs['aria-invalid'],'true');
+  select.removeAttribute('aria-invalid');set.sync();assert.equal(set.button.getAttribute('aria-invalid'),null);
+ }
+});
