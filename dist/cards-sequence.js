@@ -10,7 +10,7 @@ const detail=section.querySelector('.cards-detail'),countEl=detail.querySelector
 /* Before card 01 comes forward, the detail panel shows the set at a glance instead of standing empty. */
 const intro=document.createElement('div');intro.className='cd-intro';intro.innerHTML='<p class="cd-intro-title">The set</p><ul class="cd-intro-rarity"><li><span class="tc-rarity" data-rarity="common">Common</span><b>×4</b></li><li><span class="tc-rarity" data-rarity="rare">Rare</span><b>×2</b></li><li><span class="tc-rarity" data-rarity="secret">Secret</span><b>×1</b></li></ul><p class="cd-intro-cue"><span aria-hidden="true">↓</span> Scroll to deal the cards</p>';detail.prepend(intro);const cueEl=intro.querySelector('.cd-intro-cue');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(max-width:760px)'),tablet=matchMedia('(min-width:761px) and (max-width:1050px)');
-const FAN=[-30,-20,-10,10,20,30,0],FANZ=[1,2,3,3,2,1,5];
+const FAN=[-30,-20,-10,10,20,30,0];
 /* Progress phases: closed deck until DECK, opening into the fan until SPREAD, then the fan stays open while the page carries on.
    (The owner preferred no one-by-one focus: FOCUS_END = SPREAD, so there are no focus slots.)
    Pins are short (phones especially) and the deck starts opening while the section is still sliding up (LEAD), so it costs little scrolling. */
@@ -61,12 +61,14 @@ function paint(){
   const fa=FAN[i]*k,fr=fa*Math.PI/180,fx=L*Math.sin(fr),fy=L*(1-Math.cos(fr))+fanY,fs=i===6?1.12:1;
   const dx=(i-3)*1.6,dy=-(6-i)*1.4-ch*.02,dr=(i-3)*1.4,ds=.96;
   let x=lerp(dx,fx,e),y=lerp(dy,fy,e),r=lerp(dr,fa,e),s=lerp(ds,fs,e);
+  /* The Secret card is pulled up out of the deck, changes layer while it is clear of the others, then drops in front (no pop through the stack). */
+  if(i===6){const lift=e<.5?smooth(e/.42):1-smooth((e-.58)/.42);y-=ch*1.1*lift;s*=1+.04*lift}
   const f=w[i];let tilt=0;
   if(f>0){x=lerp(x,0,f);y=lerp(y,focusY,f);r=lerp(r,0,clamp(f));s=lerp(s,focusS,f);tilt=-10*Math.sin(Math.PI*clamp(f))*(i%2?1:-1)}
   const dim=top>=0&&top!==i?1-.42*clamp(maxW):1;
   card.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+r.toFixed(2)+'deg) rotateY('+tilt.toFixed(2)+'deg) scale('+s.toFixed(3)+')';
   card.style.opacity=dim.toFixed(3);
-  card.style.zIndex=f>.02?20+Math.round(f*10):e>.5?FANZ[i]:7-i;
+  card.style.zIndex=f>.02?20+Math.round(f*10):i===6?(e>=.5?10:0):7-i;
   poses[i]={r,s};
   if(glows[i])glows[i].style.opacity=(clamp(f)*(i===6?1:.85)).toFixed(3);
  });
