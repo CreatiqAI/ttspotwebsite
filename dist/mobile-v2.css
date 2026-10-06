@@ -233,6 +233,7 @@ body{overflow-x:clip;background:var(--m-bg)}
 .road-journey .faq>*{margin:0;padding:0;background:none!important}
 .road-journey .faq>div:first-child{position:relative;padding-right:96px!important;margin-bottom:18px}
 .road-journey .faq h2{margin:0}
+.faq-art{display:contents}.faq-q{display:none}
 .m-faq-titi[hidden],.m-faq-titi{position:absolute;right:-6px;top:50%;display:block;width:auto;height:96px;transform:translateY(-50%) rotate(6deg);filter:drop-shadow(0 10px 16px #000b)}
 .road-journey .faq-list details{padding:0;margin:0 0 8px;border:1px solid var(--m-line)!important;border-radius:16px;background:var(--m-glass)}
 .road-journey .faq-list details:first-child{padding-top:0}
@@ -341,4 +342,5 @@ select.has-choice-chips{display:none!important}
 :root{--glass-bg:linear-gradient(125deg,rgba(255,255,255,.16) 0,rgba(255,255,255,0) 38%),linear-gradient(150deg,rgba(255,255,255,.13) 0,rgba(255,255,255,.05) 45%,rgba(255,255,255,.03) 100%);--glass-line:rgba(255,255,255,.16);--glass-blur:blur(18px) saturate(165%);--glass-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(255,255,255,.05),0 14px 30px rgba(0,0,0,.35)}
 .m-how-step,.road-journey .discovery .map-option,.road-journey .discovery .map-option.selected,.partner-directory .partner-brands article,.mobile-events .mobile-event,.road-journey .faq-list details,.cd-intro-rarity li{background:var(--glass-bg)!important;border-color:var(--glass-line)!important;-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:var(--glass-shadow)}
 .partner-directory .partner-brands article:last-child{background:var(--glass-bg),radial-gradient(110% 120% at 100% 0,rgba(239,0,16,.3) 0,transparent 60%)!important}
-.road-journey>section#vendors,.road-journey>section.mobile-events,.road-journey>section.faq,.road-journey>section.discovery{background-image:radial-gradient(60% 34% at 0 12%,rgba(239,0,16,.32),transparent 70%),radial-gradient(55% 30% at 100% 70%,rgba(255,58,80,.22),transparent 70%),radial-gradient(50% 26% at 30% 100%,rgba(255,255,255,.07),transparent 70%)!important}
+.road-journey>section#vendors,.road-journey>section.mobile-events,.road-journey>section.faq,.road-journey>section.discovery{background-image:radial-gradient(60% 34% at 0 30%,rgba(239,0,16,.32),transparent 70%),radial-gradient(55% 30% at 100% 70%,rgba(255,58,80,.22),transparent 70%),radial-gradient(50% 26% at 30% 76%,rgba(255,255,255,.07),transparent 70%)!important}
+/* (Each glow above fades out inside its section, so none is cut at a section edge.) */

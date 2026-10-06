@@ -13,9 +13,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(
 const FAN=[-30,-20,-10,10,20,30,0],FANZ=[1,2,3,3,2,1,5];
 /* Progress phases: closed deck until DECK, opening into the fan until SPREAD, then the fan stays open while the page carries on.
    (The owner preferred no one-by-one focus: FOCUS_END = SPREAD, so there are no focus slots.)
-   Phones pin for a shorter stretch and start opening the deck while the section is still sliding up (LEAD), so it costs little scrolling. */
+   Pins are short (phones especially) and the deck starts opening while the section is still sliding up (LEAD), so it costs little scrolling. */
 let DECK=.12,SPREAD=.62,FOCUS_END=.62,SLOT=0,LEAD=0;
-function phases(){if(phone.matches){DECK=.06;SPREAD=.82;LEAD=.32}else{DECK=.12;SPREAD=.62;LEAD=0}FOCUS_END=SPREAD;SLOT=(FOCUS_END-SPREAD)/7}
+function phases(){if(phone.matches){DECK=.06;SPREAD=.82;LEAD=.32}else{DECK=.08;SPREAD=.74;LEAD=.25}FOCUS_END=SPREAD;SLOT=(FOCUS_END-SPREAD)/7}
 phases();
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
 const back=t=>{t=clamp(t);const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
