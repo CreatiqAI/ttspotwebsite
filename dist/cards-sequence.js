@@ -30,12 +30,18 @@ function weight(i,p){
  if(u<.3)return back(u/.3);if(u<.76)return 1;return 1-smooth((u-.76)/.24);
 }
 function showDetail(i){
- if(i===active)return;active=i;swap=!swap;
- detail.classList.toggle('swap-a',swap);detail.classList.toggle('swap-b',!swap);
+ if(i===active)return;
+ /* Between the two overview states (deck closed / fan open) only the cue line changes: no panel animation,
+    so the Common/Rare/Secret badges stay still instead of blinking. */
+ const calm=(i===-1||i===7)&&(active===-1||active===7||active===-2);
+ const changedCue=(i===-1||i===7)&&(active===-1||active===7);
+ active=i;
+ if(!calm){swap=!swap;detail.classList.toggle('swap-a',swap);detail.classList.toggle('swap-b',!swap)}
  stage.classList.toggle('is-secret',i===6);
  if(i>=0&&i<7){const c=CARDS[i]||{};detail.dataset.state='card';countEl.textContent=String(i+1).padStart(2,'0');nameEl.textContent=c.name||'';rarityEl.textContent=c.rarity||'';rarityEl.dataset.rarity=(c.rarity||'').toLowerCase();lineEl.textContent=c.line||'';stage.style.setProperty('--focus-color',c.color||'#ef0010')}
  else if(i===7){detail.dataset.state='done';cueEl.innerHTML='Tap a card to see it up close'}
  else{detail.dataset.state='intro';cueEl.innerHTML='<span aria-hidden="true">↓</span> Scroll to deal the cards'}
+ if(changedCue&&!reduced.matches&&cueEl.animate)cueEl.animate([{opacity:0},{opacity:1}],{duration:260,easing:'ease-out'});
  steps.forEach((b,j)=>j===i?b.setAttribute('aria-current','true'):b.removeAttribute('aria-current'));
 }
 const fills=steps.map(()=>-1);
@@ -61,7 +67,9 @@ function paint(){
   poses[i]={r,s};
   if(glows[i])glows[i].style.opacity=(clamp(f)*(i===6?1:.85)).toFixed(3);
  });
- showDetail(p<SPREAD+SLOT*.15?-1:p>=FOCUS_END-SLOT*.12?7:(top>=0&&w[top]>.25?top:active>=0&&active<7?active:-1));
+ /* Deck-only mode: open once the fan has spread, and only fall back a little earlier, so hovering on the threshold can't flicker. */
+ if(SLOT<=0)showDetail(active===7?(p>=SPREAD-.04?7:-1):(p>=SPREAD?7:-1));
+ else showDetail(p<SPREAD+SLOT*.15?-1:p>=FOCUS_END-SLOT*.12?7:(top>=0&&w[top]>.25?top:active>=0&&active<7?active:-1));
  steps.forEach((b,i)=>{const v=Math.round(clamp((p-(SPREAD+SLOT*i))/SLOT)*100)/100;if(v!==fills[i]){fills[i]=v;b.style.setProperty('--fill',v)}});
 }
 function schedule(){if(!frame)frame=requestAnimationFrame(paint)}
