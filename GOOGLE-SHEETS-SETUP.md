@@ -6,7 +6,7 @@ The existing form posts to `/api/early-access` on Vercel. That server forwards v
 
 ## One-time owner setup
 
-1. Sign in as the sheet owner, `ttspotmy@gmail.com`. Keep the sheet's general access **Restricted**.
+1. Sign in as the sheet owner, `team@ttspot.my`. Keep the sheet's general access **Restricted**.
 2. Open **Extensions → Apps Script** from the sheet. Paste `integrations/google-sheets/Code.gs` into the script editor and save as **TTSpot registrations**.
 3. In **Project Settings → Script properties**, add `SIGNUP_SCRIPT_SECRET`. Use a random secret of at least 32 characters, generated in a password manager. Keep it private.
 4. **Deploy → New deployment → Web app**. Execute as the owner; access **Anyone**. Approve the Google permission prompt as the owner. The endpoint accepts writes only with the private secret; it never returns sheet contents. Use the production `/exec` URL, not `/dev`.
